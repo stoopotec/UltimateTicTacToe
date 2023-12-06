@@ -1,5 +1,6 @@
 #include <iostream>
-#include "interface.hpp"
+#include "playground.hpp"
+#include "player.hpp"
 
 int main(int argc, char** argv)
 {

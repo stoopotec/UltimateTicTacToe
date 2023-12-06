@@ -1,1 +1,1 @@
-g++ main.cpp interface.cpp -o main
+g++ main.cpp playground.cpp player.cpp -o main
