@@ -54,6 +54,12 @@ char who_win(char* cells) {
 
 cell::cell(bool visible, char symbol) : visible(visible), symbol(symbol) { }
 
+
+
+
+
+
+
 box::box(size_t side_size) : capture_cell(cell(false, MES_DEF_VISIBLE_CHAR)) { 
     cells = (cell*)malloc(sizeof(*cells) * side_size * side_size);
     if (cells == nullptr) {
@@ -61,7 +67,23 @@ box::box(size_t side_size) : capture_cell(cell(false, MES_DEF_VISIBLE_CHAR)) {
         exit(EXIT_FAILURE);
     }
 }
+
 box::~box() { free(cells); }
+
+char _temp9cells[9];
+void box::update() {
+    static char win;
+    if (captured) return;
+    for (int i = 0; i < 9; i++) _temp9cells[i] = cells[i].symbol;
+    win = who_win(_temp9cells);
+    if (win != '\0') {
+        captured = true;
+        capture_cell = cell(true, win);
+    }
+}
+
+
+
 
 
 
