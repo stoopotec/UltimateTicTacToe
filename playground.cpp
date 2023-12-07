@@ -53,16 +53,13 @@ char who_win(char* cells) {
 
 
 
-/// @brief 
-/// @param c 
-/// @param i 
 /// @return переменная, содержащая 2 бита под индексом i из переменной c
 inline unsigned char _get2(unsigned char c, unsigned char i) { return (c >> i) & (unsigned char)0b11; }
 
-/// @brief переменная, содержащая 2 бита под индексом i из переменной c ///////////////////////////////
-/// @param c 
-/// @param i 
-/// @return
+/// @brief записывает в переменную cin 2 первых бита из c под индексом i
+/// @param cin переменная, в которую записывать те злополучные 2 бита
+/// @param i индекс
+/// @param c берётся только 2 первых бита (see CELL_... в playground.hpp)
 inline          void _set2(unsigned char& cin, unsigned char i, unsigned char c) { 
     cin &= ~((unsigned char)0b11 << i);
     cin |= (c & 0b11) << i; 
