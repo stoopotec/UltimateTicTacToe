@@ -6,6 +6,9 @@
 
 
 
+class Player;
+
+
 // struct color
 // {
 //     color(unsigned char r, unsigned char g, unsigned char b);

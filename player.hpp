@@ -2,6 +2,10 @@
 
 #include "playground.hpp"
 
+
+struct playground;
+struct cell;
+
 class Player
 {
 public:
@@ -11,7 +15,7 @@ public:
     virtual void next_move(int& x, int& y, playground& playground) = 0;
     cell get_own_cell();
 private:
-    cell own_cell;
+    cell* own_cell;
 };
 
 class ConsolePlayer : public Player
