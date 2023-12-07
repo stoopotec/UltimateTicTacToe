@@ -63,7 +63,7 @@ inline unsigned char _get2(unsigned char c, unsigned char i) { return (c >> i) &
 /// @param c 
 /// @param i 
 /// @return
-inline          void _set2(unsigned char cin, unsigned char i, unsigned char& c) { 
+inline          void _set2(unsigned char& cin, unsigned char i, unsigned char c) { 
     cin &= ~((unsigned char)0b11 << i);
     cin |= (c & 0b11) << i; 
 }
