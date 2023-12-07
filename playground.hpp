@@ -5,8 +5,13 @@
 #include "player.hpp"
 
 
+#define CELL_SPACE 0b00
+#define CELL_PL1   0b01
+#define CELL_PL2   0b10
+#define CELL_ERR   0b11
 
-class Player;
+#define PLAYGROUND_SIDE_SIZE 3
+#define PLAYGROUND_BYTES 22
 
 
 // struct color
@@ -28,61 +33,26 @@ bool visible_char(char c);
 /// @return '\0', если победителя нету, иначе ячейку ассоциируется с победителем
 char who_win(char* cells);
 
-struct cell
-{
-    cell(bool visible, char symbol);
-    bool visible;
-    char symbol;
-};
-
-struct box
-{
-public:
-    /// @brief 
-    /// @param side_size размер стороны коробки (предпологается, что коробка квадратная)
-    box(size_t side_size);
-    ~box();
-    size_t get_side_size();
-    
-    /// @brief ищет выигрыши
-    void update();
-
-    /// @brief 
-    /// @param x максимум - get_side_size() - 1
-    /// @param y максимум - get_side_size() - 1
-    /// @return указатель на ячейку в блоке, возвращает nullptr, если x и y вышли за границы поля
-    cell* get_cell_on_pos(size_t x, size_t y);
-private:
-    bool captured;
-    cell capture_cell;
-    cell* cells;
-    size_t side_size;
-};
 
 struct playground
 {
 public:
-    playground(size_t side_size, Player** players, size_t players_count);
+    playground();
     ~playground();
-    size_t get_side_size();
 
     /// @brief 
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    /// @return указатель на ячейку в блоке в игровом поле, возвращает nullptr, если x и y вышли за границы поля
-    cell* get_cell_on_pos(size_t x, size_t y);
+    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - неопределено, всё остальное - выход за пределы поля
+    unsigned char get_cell_on_pos(size_t x, size_t y);
 
-    /// @brief 
-    /// @param x максимум - get_side_size() - 1
-    /// @param y максимум - get_side_size() - 1
-    /// @return указатель на блок в игровом поле, возвращает nullptr, если x и y перешли уже все границы
-    box* get_box_on_pos(size_t x, size_t y);
+    /// @brief
+    /// @param x максимум - get_side_size() * get_side_size() - 1
+    /// @param y максимум - get_side_size() * get_side_size() - 1
+    void set_cell_on_pos(size_t x, size_t y, unsigned char c);
 
     /// @brief ищет выигрыши
     void update();
 private:
-    Player** players;
-    size_t players_count;
-    box* boxes;
-    size_t side_size;
+    unsigned char ground[PLAYGROUND_BYTES];
 };

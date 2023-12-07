@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 
-BotPlayer::BotPlayer(cell own_cell) : Player(own_cell) { }
+BotPlayer::BotPlayer() { }
 
 
 void BotPlayer::next_move(int& x, int& y, playground& playground) {

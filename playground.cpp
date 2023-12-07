@@ -52,76 +52,106 @@ char who_win(char* cells) {
 
 
 
-cell::cell(bool visible, char symbol) : visible(visible), symbol(symbol) { }
+
+/// @brief 
+/// @param c 
+/// @param i 
+/// @return переменная, содержащая 2 бита под индексом i из переменной c
+inline unsigned char _get2(unsigned char c, unsigned char i) { return (c >> i) & (unsigned char)0b11; }
+
+/// @brief переменная, содержащая 2 бита под индексом i из переменной c ///////////////////////////////
+/// @param c 
+/// @param i 
+/// @return
+inline          void _set2(unsigned char cin, unsigned char i, unsigned char& c) { 
+    cin &= ~((unsigned char)0b11 << i);
+    cin |= (c & 0b11) << i; 
+}
 
 
+playground::playground() {
+    for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
+}
+playground::~playground() { }
+
+unsigned char playground::get_cell_on_pos(size_t x, size_t y) {
+    if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
+        return CELL_ERR;
+    // xbox - кордината коробки 3 на 3 (0, 1, 2)
+    // xinbox - кордината ячейки в коробке (0, 1, 2)
+    static int xinbox, yinbox, xbox, ybox;
+    xinbox = x % PLAYGROUND_SIDE_SIZE;
+    yinbox = y % PLAYGROUND_SIDE_SIZE;
+
+    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
 
 
+    
+    if (yinbox == 1) {
+        if (xinbox == 1) {
+            if (ybox == 1) {
+                if (xbox == 1) {
+                    return _get2(ground[20], 0);
+                }
 
+                if (xbox == 0) return _get2(ground[18], 6);
+                if (xbox == 2) return _get2(ground[19], 0);
+            }
 
+            if (ybox == 0) return _get2(ground[18],  xbox      * 2);
+            if (ybox == 2) return _get2(ground[19], (xbox + 1) * 2);
+        }
 
-box::box(size_t side_size) : capture_cell(cell(false, MES_DEF_VISIBLE_CHAR)) { 
-    cells = (cell*)malloc(sizeof(*cells) * side_size * side_size);
-    if (cells == nullptr) {
-        printf(MES_MEMORY_NOT_ENOUGH);
-        exit(EXIT_FAILURE);
+        if (xinbox == 0) return _get2(ground[ybox * 6 + 2 * xbox    ], 6);
+        if (xinbox == 2) return _get2(ground[ybox * 6 + 2 * xbox + 1], 0);
     }
+
+    if (yinbox == 0) return _get2(ground[ybox * 6 + 2 * xbox    ],  xinbox      * 2);
+    if (yinbox == 2) return _get2(ground[ybox * 6 + 2 * xbox + 1], (xinbox + 1) * 2);
+
+
+    return CELL_ERR;
 }
 
-box::~box() { free(cells); }
 
-size_t box::get_side_size() { return side_size; }
 
-char _temp9cells[9];
-void box::update() {
-    static char win;
-    if (captured) return;
-    for (int i = 0; i < 9; i++) _temp9cells[i] = cells[i].symbol;
-    win = who_win(_temp9cells);
-    if (win != '\0') {
-        captured = true;
-        capture_cell = cell(true, win);
+
+
+
+void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
+    if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
+        return;
+    // xbox - кордината коробки 3 на 3 (0, 1, 2)
+    // xinbox - кордината ячейки в коробке (0, 1, 2)
+    static int xinbox, yinbox, xbox, ybox;
+    xinbox = x % PLAYGROUND_SIDE_SIZE;
+    yinbox = y % PLAYGROUND_SIDE_SIZE;
+
+    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+
+
+    
+    if (yinbox == 1) {
+        if (xinbox == 1) {
+            if (ybox == 1) {
+                if (xbox == 1) {
+                    _set2(ground[20], 0, c);
+                }
+
+                if (xbox == 0) _set2(ground[18], 6, c);
+                if (xbox == 2) _set2(ground[19], 0, c);
+            }
+
+            if (ybox == 0) _set2(ground[18],  xbox      * 2, c);
+            if (ybox == 2) _set2(ground[19], (xbox + 1) * 2, c);
+        }
+
+        if (xinbox == 0) _set2(ground[ybox * 6 + 2 * xbox    ], 6, c);
+        if (xinbox == 2) _set2(ground[ybox * 6 + 2 * xbox + 1], 0, c);
     }
+
+    if (yinbox == 0) _set2(ground[ybox * 6 + 2 * xbox    ],  xinbox      * 2, c);
+    if (yinbox == 2) _set2(ground[ybox * 6 + 2 * xbox + 1], (xinbox + 1) * 2, c);
 }
-
-cell* box::get_cell_on_pos(size_t x, size_t y) {
-    if (x >= side_size || y >= side_size) return nullptr;
-    return (cells + (x + y * side_size));
-}
-
-
-
-
-
-
-
-playground::playground(size_t side_size, Player** players, size_t players_count) 
-    : side_size(side_size), players(players), players_count(players_count)
-{
-    boxes = (box*)malloc(sizeof(*boxes) * side_size * side_size);
-    if (boxes == nullptr) {
-        printf(MES_MEMORY_NOT_ENOUGH);
-        exit(0);
-    }
-}
-playground::~playground() { free(boxes); }
-cell* playground::get_cell_on_pos(size_t x, size_t y) {
-    static int xbox, ybox;
-    xbox = x % side_size;
-    ybox = y % side_size;
-
-    x -= xbox;
-    y -= ybox;
-
-    box* _box = get_box_on_pos(x / side_size, y / side_size);
-    if (_box == nullptr) return nullptr;
-
-    return _box->get_cell_on_pos(xbox, ybox);
-}
-box* playground::get_box_on_pos(size_t x, size_t y) {
-    // x и y и так unsigned :)
-    if (x >= side_size || y >= side_size) return nullptr;
-    return (boxes + (x + y * side_size));
-}
-
-size_t playground::get_side_size() { return side_size; }

@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 
-ConsolePlayer::ConsolePlayer(cell own_cell) : Player(own_cell) { }
+ConsolePlayer::ConsolePlayer() { }
 
 
 void ConsolePlayer::next_move(int& x, int& y, playground& playground) {

@@ -9,12 +9,12 @@ int main(int argc, char** argv)
     // массив из указателей на Player, нужно для апкаста. (watch extremecode)
     Player* players[2];
 
-    ConsolePlayer p1 = ConsolePlayer(cell(false, 'x'));
+    ConsolePlayer p1 = ConsolePlayer();
     players[0] = &p1;
-    ConsolePlayer p2 = ConsolePlayer(cell(false, 'o'));
+    ConsolePlayer p2 = ConsolePlayer();
     players[1] = &p2;
 
-    playground ground = playground(3, players, 2);
+    playground ground = playground();
 
     
 }

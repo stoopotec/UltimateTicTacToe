@@ -3,31 +3,23 @@
 #include "playground.hpp"
 
 
-struct playground;
-struct cell;
-
 class Player
 {
 public:
-    /// @brief 
-    /// @param own_cell будет извлекаться только char, если пройдёт проверку на видимый символ
-    Player(cell own_cell);
+    Player();
     virtual void next_move(int& x, int& y, playground& playground) = 0;
-    cell get_own_cell();
-private:
-    cell* own_cell;
 };
 
 class ConsolePlayer : public Player
 {
 public:
-    ConsolePlayer(cell own_cell);
+    ConsolePlayer();
     void next_move(int& x, int& y, playground& playground) override;
 };
 
 class BotPlayer : public Player
 {
 public:
-    BotPlayer(cell own_cell);
+    BotPlayer();
     void next_move(int& x, int& y, playground& playground) override;
 };
