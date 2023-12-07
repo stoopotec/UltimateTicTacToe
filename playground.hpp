@@ -42,9 +42,16 @@ public:
     /// @param side_size размер стороны коробки (предпологается, что коробка квадратная)
     box(size_t side_size);
     ~box();
+    size_t get_side_size();
     
     /// @brief ищет выигрыши
     void update();
+
+    /// @brief 
+    /// @param x максимум - get_side_size() - 1
+    /// @param y максимум - get_side_size() - 1
+    /// @return указатель на ячейку в блоке, возвращает nullptr, если x и y вышли за границы поля
+    cell* get_cell_on_pos(size_t x, size_t y);
 private:
     bool captured;
     cell capture_cell;
@@ -60,14 +67,14 @@ public:
     size_t get_side_size();
 
     /// @brief 
-    /// @param x координата по x, максимум - get_side_size() * get_side_size() - 1
-    /// @param y координата по y, максимум - get_side_size() * get_side_size() - 1
+    /// @param x максимум - get_side_size() * get_side_size() - 1
+    /// @param y максимум - get_side_size() * get_side_size() - 1
     /// @return указатель на ячейку в блоке в игровом поле, возвращает nullptr, если x и y вышли за границы поля
     cell* get_cell_on_pos(size_t x, size_t y);
 
     /// @brief 
-    /// @param x координата по x, максимум - get_side_size() - 1
-    /// @param y координата по y, максимум - get_side_size() - 1
+    /// @param x максимум - get_side_size() - 1
+    /// @param y максимум - get_side_size() - 1
     /// @return указатель на блок в игровом поле, возвращает nullptr, если x и y перешли уже все границы
     box* get_box_on_pos(size_t x, size_t y);
 

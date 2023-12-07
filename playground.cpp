@@ -70,6 +70,8 @@ box::box(size_t side_size) : capture_cell(cell(false, MES_DEF_VISIBLE_CHAR)) {
 
 box::~box() { free(cells); }
 
+size_t box::get_side_size() { return side_size; }
+
 char _temp9cells[9];
 void box::update() {
     static char win;
@@ -80,6 +82,11 @@ void box::update() {
         captured = true;
         capture_cell = cell(true, win);
     }
+}
+
+cell* box::get_cell_on_pos(size_t x, size_t y) {
+    if (x >= side_size || y >= side_size) return nullptr;
+    return (cells + (x + y * side_size));
 }
 
 
@@ -109,7 +116,7 @@ cell* playground::get_cell_on_pos(size_t x, size_t y) {
     box* _box = get_box_on_pos(x / side_size, y / side_size);
     if (_box == nullptr) return nullptr;
 
-
+    return _box->get_cell_on_pos(xbox, ybox);
 }
 box* playground::get_box_on_pos(size_t x, size_t y) {
     // x и y и так unsigned :)
