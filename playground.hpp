@@ -53,6 +53,14 @@ public:
 
     /// @brief ищет выигрыши
     void update();
+
+    /// @brief узнаёт, какой игрок сейчас должен ходить
+    /// @return число 1 или 0. если 0, ходит второй игрок (нолик), если 1 - первый
+    unsigned char who_moves();
+
+    /// @brief 
+    /// @return номер блока, куда можно ходить. ЕСЛИ НОМЕР БОЛЬШЕ 8 - можно ходить куда угодно
+    unsigned char where_to_move();
 private:
     unsigned char ground[PLAYGROUND_BYTES];
 };
