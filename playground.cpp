@@ -56,6 +56,10 @@ char who_win(char* cells) {
 /// @return переменная, содержащая 2 бита под индексом i из переменной c
 inline unsigned char _get2(unsigned char c, unsigned char i) { return (c >> i) & (unsigned char)0b11; }
 
+/// @return переменная, содержащая 1 бит под индексом i из переменной c
+inline unsigned char _get1(unsigned char c, unsigned char i) { return (c >> i) & (unsigned char)0b1; }
+
+
 /// @brief записывает в переменную cin 2 первых бита из c под индексом i
 /// @param cin переменная, в которую записывать те злополучные 2 бита
 /// @param i индекс
@@ -63,6 +67,15 @@ inline unsigned char _get2(unsigned char c, unsigned char i) { return (c >> i) &
 inline          void _set2(unsigned char& cin, unsigned char i, unsigned char c) { 
     cin &= ~((unsigned char)0b11 << i);
     cin |= (c & 0b11) << i; 
+}
+
+/// @brief записывает в переменную cin 1 первый бит из c под индексом i
+/// @param cin переменная, в которую записывать бит
+/// @param i индекс
+/// @param c берётся только 1 первый бит
+inline          void _set1(unsigned char& cin, unsigned char i, unsigned char c) { 
+    cin &= ~((unsigned char)0b1 << i);
+    cin |= (c & 0b1) << i; 
 }
 
 
