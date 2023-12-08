@@ -53,6 +53,10 @@ public:
 
     /// @brief ищет выигрыши
     void update();
+
+    /// @brief узнаёт, какой игрок сейчас должен ходить
+    /// @return число 1 или 0. если 0, ходит второй игрок (нолик), если 1 - первый
+    unsigned char who_moves();
 private:
     unsigned char ground[PLAYGROUND_BYTES];
 };

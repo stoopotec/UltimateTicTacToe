@@ -81,6 +81,9 @@ inline          void _set1(unsigned char& cin, unsigned char i, unsigned char c)
 
 playground::playground() {
     for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
+    // третий бит отвечает за хранение того, кто сейчас ходит, 
+    // с тетьего по 8 - куда можно ходить (если значение больше 8, ходить можно куда угодно)
+    ground[20] |= 0b11111100; 
 }
 playground::~playground() { }
 
@@ -164,4 +167,8 @@ void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
 
     if (yinbox == 0) _set2(ground[ybox * 6 + 2 * xbox    ],  xinbox      * 2, c);
     if (yinbox == 2) _set2(ground[ybox * 6 + 2 * xbox + 1], (xinbox + 1) * 2, c);
+}
+
+unsigned char playground::who_moves() {
+    return _get1(ground[20], 2);
 }
