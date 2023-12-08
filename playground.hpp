@@ -53,7 +53,7 @@ public:
     /// @brief 
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - неопределено, всё остальное - выход за пределы поля
+    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - выход за пределы поля
     unsigned char get_cell_on_pos(size_t x, size_t y);
 
     /// @brief
