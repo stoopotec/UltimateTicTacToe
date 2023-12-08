@@ -79,6 +79,16 @@ inline          void _set1(unsigned char& cin, unsigned char i, unsigned char c)
 }
 
 
+
+char cell_to_char(unsigned char cell) {
+         if (cell == CELL_SPACE) return ' ';
+    else if (cell == CELL_PL1)   return 'x';
+    else if (cell == CELL_PL2)   return 'o';
+    else if (cell == CELL_ERR)   return 'E';
+    else                         return '?';
+}
+
+
 playground::playground() {
     for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
     // третий бит отвечает за хранение того, кто сейчас ходит, 
