@@ -172,3 +172,7 @@ void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
 unsigned char playground::who_moves() {
     return _get1(ground[20], 2);
 }
+
+unsigned char playground::where_to_move() {
+    return (ground[20] & ~(unsigned char)0b111) >> 3;
+}
