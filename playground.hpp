@@ -37,7 +37,7 @@ bool visible_char(char c);
 /// @brief ищет победителя в игре в крестики-нолики
 /// @param cells массив из 9 ячеек
 /// @return '\0', если победителя нету, иначе ячейку ассоциируется с победителем
-char who_win(char* cells);
+unsigned char who_win(unsigned char* cells);
 
 
 /// @brief "сравнивает" 2 игровых поля
