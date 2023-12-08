@@ -2,6 +2,7 @@
 
 #include "playground.hpp"
 
+struct playground;
 
 class Player
 {

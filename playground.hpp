@@ -10,8 +10,14 @@
 #define CELL_PL2   0b10
 #define CELL_ERR   0b11
 
+/// @brief 
+/// @param cell число от 0 до 4
+/// @return символ, ассоциирующийся с номером клетки (см CELL_... в playground.hpp)
+char cell_to_char(unsigned char cell);
+
+
 #define PLAYGROUND_SIDE_SIZE 3
-#define PLAYGROUND_BYTES 22
+#define PLAYGROUND_BYTES 21
 
 
 // struct color
@@ -31,8 +37,12 @@ bool visible_char(char c);
 /// @brief ищет победителя в игре в крестики-нолики
 /// @param cells массив из 9 ячеек
 /// @return '\0', если победителя нету, иначе ячейку ассоциируется с победителем
-char who_win(char* cells);
+unsigned char who_win(unsigned char* cells);
 
+
+/// @brief "сравнивает" 2 игровых поля
+/// @return если первое "меньше" второго, возвращает значение меньше нуля, если больше - больше нуля, если равны - ноль
+int compare(playground& pg1, playground& pg2);
 
 struct playground
 {
@@ -43,7 +53,7 @@ public:
     /// @brief 
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - неопределено, всё остальное - выход за пределы поля
+    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - выход за пределы поля
     unsigned char get_cell_on_pos(size_t x, size_t y);
 
     /// @brief
@@ -61,6 +71,8 @@ public:
     /// @brief 
     /// @return номер блока, куда можно ходить. ЕСЛИ НОМЕР БОЛЬШЕ 8 - можно ходить куда угодно
     unsigned char where_to_move();
+
+    unsigned char* get_ground() { return ground; }
 private:
     unsigned char ground[PLAYGROUND_BYTES];
 };

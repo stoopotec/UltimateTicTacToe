@@ -19,33 +19,40 @@ bool visible_char(char c) {
 
 
 /// @brief character equal
-/// @return если не равны - '\0', иначе один из тех равных символов
-char _cheq(char c1, char c2, char c3) { if (c1 == c2 && c2 == c3) return c1; return '\0'; }
+/// @return если не равны - CELL_ERR (0b11), иначе один из тех равных символов
+unsigned char _cheq(unsigned char c1, unsigned char c2, unsigned char c3) {
+    if (c1 == c2 && c2 == c3)
+        return c1; 
+    return CELL_ERR; 
+}
 
-char who_win(char* cells) {
+/// @brief ищет победителя в игре в крестики-нолики
+/// @param cells массив из девяти ячеек (ячейки должны использовать только 2 первых бита)
+/// @return ячейка победителя если таковой имеется, иначе CELL_ERR (0b11)
+unsigned char who_win(unsigned char* cells) {
 
     // 0 1 2
     // 3 4 5
     // 6 7 8
 
-    static char winner;
+    static unsigned char winner;
     for (int i = 0; i < 3; i++) {
         winner = _cheq(cells[i*3 + 0], cells[i*3 + 1], cells[i*3 + 2]);
-        if (winner != '\0') return winner;
+        if (winner != CELL_ERR && winner != CELL_SPACE) return winner;
     }
 
     for (int i = 0; i <= 6; i += 3) {
         winner = _cheq(cells[i + 0], cells[i + 1], cells[i + 2]);
-        if (winner != '\0') return winner;
+        if (winner != CELL_ERR && winner != CELL_SPACE) return winner;
     }
 
     winner = _cheq(cells[0], cells[4], cells[8]);
-    if (winner != '\0') return winner;
+    if (winner != CELL_ERR && winner != CELL_SPACE) return winner;
 
     winner = _cheq(cells[6], cells[4], cells[2]);
-    if (winner != '\0') return winner;
+    if (winner != CELL_ERR && winner != CELL_SPACE) return winner;
 
-    return '\0';
+    return CELL_ERR;
 }
 
 
@@ -79,6 +86,27 @@ inline          void _set1(unsigned char& cin, unsigned char i, unsigned char c)
 }
 
 
+
+char cell_to_char(unsigned char cell) {
+         if (cell == CELL_SPACE) return ' ';
+    else if (cell == CELL_PL1)   return 'x';
+    else if (cell == CELL_PL2)   return 'o';
+    else if (cell == CELL_ERR)   return 'E';
+    else                         return '?';
+}
+
+
+
+int compare(playground& pg1, playground& pg2) {
+    unsigned char* pgg1 = pg1.get_ground();
+    unsigned char* pgg2 = pg2.get_ground();
+    for (int i = 0; i < PLAYGROUND_BYTES; i++) {
+        if (pgg1[i] > pgg2[i]) return  1;
+        if (pgg1[i] < pgg2[i]) return -1;
+    }
+    return 0;
+}
+
 playground::playground() {
     for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
     // третий бит отвечает за хранение того, кто сейчас ходит, 
@@ -97,7 +125,7 @@ unsigned char playground::get_cell_on_pos(size_t x, size_t y) {
     yinbox = y % PLAYGROUND_SIDE_SIZE;
 
     xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
-    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+    ybox = (y - yinbox) / PLAYGROUND_SIDE_SIZE;
 
 
     
@@ -142,7 +170,7 @@ void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
     yinbox = y % PLAYGROUND_SIDE_SIZE;
 
     xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
-    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+    ybox = (y - yinbox) / PLAYGROUND_SIDE_SIZE;
 
 
     

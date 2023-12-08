@@ -15,6 +15,5 @@ int main(int argc, char** argv)
     players[1] = &p2;
 
     playground ground = playground();
-
     
 }
