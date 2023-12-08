@@ -1,6 +1,6 @@
-# UltimateTicTacToe
+# Ultimate Tic Tac Toe
 
-## Rules
+## Правила
 [Правила из википедии](https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe#Rules)
 
 Первый / второй игрок - крестик / нолик.
