@@ -10,8 +10,14 @@
 #define CELL_PL2   0b10
 #define CELL_ERR   0b11
 
+/// @brief 
+/// @param cell число от 0 до 4
+/// @return символ, ассоциирующийся с номером клетки (см CELL_... в playground.hpp)
+char cell_to_char(unsigned char cell);
+
+
 #define PLAYGROUND_SIDE_SIZE 3
-#define PLAYGROUND_BYTES 22
+#define PLAYGROUND_BYTES 21
 
 
 // struct color
@@ -61,6 +67,8 @@ public:
     /// @brief 
     /// @return номер блока, куда можно ходить. ЕСЛИ НОМЕР БОЛЬШЕ 8 - можно ходить куда угодно
     unsigned char where_to_move();
+
+    unsigned char* get_ground() { return ground; }
 private:
     unsigned char ground[PLAYGROUND_BYTES];
 };

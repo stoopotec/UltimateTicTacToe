@@ -97,7 +97,7 @@ unsigned char playground::get_cell_on_pos(size_t x, size_t y) {
     yinbox = y % PLAYGROUND_SIDE_SIZE;
 
     xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
-    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+    ybox = (y - yinbox) / PLAYGROUND_SIDE_SIZE;
 
 
     
@@ -142,7 +142,7 @@ void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
     yinbox = y % PLAYGROUND_SIDE_SIZE;
 
     xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
-    xbox = (x - xinbox) / PLAYGROUND_SIDE_SIZE;
+    ybox = (y - yinbox) / PLAYGROUND_SIDE_SIZE;
 
 
     
