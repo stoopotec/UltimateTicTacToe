@@ -89,6 +89,17 @@ char cell_to_char(unsigned char cell) {
 }
 
 
+
+int compare(playground& pg1, playground& pg2) {
+    unsigned char* pgg1 = pg1.get_ground();
+    unsigned char* pgg2 = pg2.get_ground();
+    for (int i = 0; i < PLAYGROUND_BYTES; i++) {
+        if (pgg1[i] > pgg2[i]) return  1;
+        if (pgg1[i] < pgg2[i]) return -1;
+    }
+    return 0;
+}
+
 playground::playground() {
     for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
     // третий бит отвечает за хранение того, кто сейчас ходит, 

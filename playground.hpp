@@ -40,6 +40,10 @@ bool visible_char(char c);
 char who_win(char* cells);
 
 
+/// @brief "сравнивает" 2 игровых поля
+/// @return если первое "меньше" второго, возвращает значение меньше нуля, если больше - больше нуля, если равны - ноль
+int compare(playground& pg1, playground& pg2);
+
 struct playground
 {
 public:
