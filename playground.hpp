@@ -44,6 +44,10 @@ unsigned char who_win(unsigned char* cells);
 /// @return если первое "меньше" второго, возвращает значение меньше нуля, если больше - больше нуля, если равны - ноль
 int compare(playground& pg1, playground& pg2);
 
+/// @brief применяет трансформацию под номером i к копии pg, и возвращает её (про номера трансформаций смотри README.md)
+/// @param transform_num от 0 до 7
+playground transform(playground pg, int i);
+
 /// @brief трансформирует pg так, чтобы compare(pg, transform(pg, n)) <= 0
 /// @param pg 
 /// @param transform_num 
