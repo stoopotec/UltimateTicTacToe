@@ -46,7 +46,7 @@ int compare(playground& pg1, playground& pg2);
 
 /// @brief применяет трансформацию под номером i к копии pg, и возвращает её (про номера трансформаций смотри README.md)
 /// @param transform_num от 0 до 7
-playground transform(playground pg, int i);
+playground transform(playground pg, unsigned char i);
 
 /// @brief трансформирует pg так, чтобы compare(pg, transform(pg, n)) <= 0
 /// @param pg 

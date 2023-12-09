@@ -107,6 +107,34 @@ int compare(playground& pg1, playground& pg2) {
     return 0;
 }
 
+playground transform(playground& pg, unsigned char i) {
+    static int mix, miy, mjx, mjy;
+    
+    i &= 0b111;
+
+    miy = mjx =    i >> 2;
+    mix = mjy = (~(i >> 2)) & 0b1;
+
+    if (i & 0b1) {
+        mix *= -1;
+        mjx *= -1;
+    }
+
+    if (i & 0b10) {
+        miy *= -1;
+        mjy *= -1;
+    }
+
+
+    playground npg = playground();
+
+    for (int y = 0; y < 9; y++)
+        for (int x = 0; x < 9; x++)
+            npg.set_cell_on_pos(mix * x + mjx * y, miy * x + mjy * y, pg.get_cell_on_pos(x, y));
+    
+    return npg;
+}
+
 playground::playground() {
     for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
     // третий бит отвечает за хранение того, кто сейчас ходит, 
