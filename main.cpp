@@ -95,7 +95,11 @@ int main(int argc, char** argv)
     using std::vector;
 
     vector<int (*)(bool)> tests = vector<int (*)(bool)>();
-    bool visual = (argv[1][0] == '-' && argv[1][1] == 'v' && argv[1][2] == '\0');
+    
+    bool visual = false;
+    if (argc > 1) {
+        if (argv[1][0] == '-' && argv[1][1] == 'v' && argv[1][2] == '\0') visual = true;
+    }
 
 
     tests.push_back(playground_get_set_test);
