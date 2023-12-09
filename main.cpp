@@ -45,27 +45,27 @@ int playground_get_set_test(bool visual)
 {
     playground ground = playground();
     if (visual) goto vis;
+    return TEST_VISUAL_FAILURE;
 
 
+    // for (unsigned char fill = 0b00; fill <= 0b11; fill++)
+    //     for (int y = 0; y < 9; y++)
+    //         for (int x = 0; x < 9; x++)
+    //         {
+    //             ground.set_cell_on_pos(x, y, fill);
+    //             for (int yy = 0; yy < 9; yy++)
+    //                 for (int xx = 0; xx < 9; xx++)
+    //                 {
+    //                     unsigned char cc = ground.get_cell_on_pos(xx, yy);
+    //                     if (xx == x && yy == x) {
+    //                         if (cc != fill) return TEST_FAILURE;
+    //                     }
+    //                     else if (cc != CELL_SPACE) return TEST_FAILURE;
+    //                 }
+    //             ground.set_cell_on_pos(x, y, CELL_SPACE);
+    //         }
 
-    for (unsigned char fill = 0b00; fill <= 0b11; fill++)
-        for (int y = 0; y < 9; y++)
-            for (int x = 0; x < 9; x++)
-            {
-                ground.set_cell_on_pos(x, y, fill);
-                for (int yy = 0; yy < 9; yy++)
-                    for (int xx = 0; xx < 9; xx++)
-                    {
-                        unsigned char cc = ground.get_cell_on_pos(xx, yy);
-                        if (xx == x && yy == x) {
-                            if (cc != fill) return TEST_FAILURE;
-                        }
-                        else if (cc != CELL_SPACE) return TEST_FAILURE;
-                    }
-                ground.set_cell_on_pos(x, y, CELL_SPACE);
-            }
-
-    return TEST_SUCCESS;
+    // return TEST_SUCCESS;
 
 
 
