@@ -37,8 +37,21 @@ bool visible_char(char c);
 /// @brief ищет победителя в игре в крестики-нолики
 /// @param cells массив из 9 ячеек
 /// @return '\0', если победителя нету, иначе ячейку ассоциируется с победителем
-char who_win(char* cells);
+unsigned char who_win(unsigned char* cells);
 
+
+/// @brief "сравнивает" 2 игровых поля
+/// @return если первое "меньше" второго, возвращает значение меньше нуля, если больше - больше нуля, если равны - ноль
+int compare(playground& pg1, playground& pg2);
+
+/// @brief применяет трансформацию под номером i к копии pg, и возвращает её (про номера трансформаций смотри README.md)
+/// @param transform_num от 0 до 7
+playground transform(playground pg, unsigned char i);
+
+/// @brief трансформирует pg так, чтобы compare(pg, transform(pg, n)) <= 0
+/// @param pg 
+/// @param transform_num 
+void min_transform(playground& pg, int& transform_num);
 
 struct playground
 {
@@ -49,7 +62,7 @@ public:
     /// @brief 
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - неопределено, всё остальное - выход за пределы поля
+    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - выход за пределы поля
     unsigned char get_cell_on_pos(size_t x, size_t y);
 
     /// @brief
