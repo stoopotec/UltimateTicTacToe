@@ -86,5 +86,5 @@ playground transform(playground& pg, unsigned char i);
 /// @param transform_num 
 void min_transform(playground& pg, int& transform_num);
 
-/// @param moves_restrict массив (максимальный размер - 82 элемента) один ход - один байт (1 - 4 бит под x, 5 - 8 бит под y) конец массива - 
+/// @param moves_restrict массив (максимальный размер - 82 элемента) один ход - один байт (1 - 4 бит под x, 5 - 8 бит под y) конец массива - 0b11111111 (максимальное для unsigned char)
 void generate_legal_moves(playground& pg, unsigned char* moves_restrict);
