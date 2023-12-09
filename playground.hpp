@@ -44,6 +44,11 @@ unsigned char who_win(unsigned char* cells);
 /// @return если первое "меньше" второго, возвращает значение меньше нуля, если больше - больше нуля, если равны - ноль
 int compare(playground& pg1, playground& pg2);
 
+/// @brief трансформирует pg так, чтобы compare(pg, transform(pg, n)) <= 0
+/// @param pg 
+/// @param transform_num 
+void min_transform(playground& pg, int& transform_num);
+
 struct playground
 {
 public:
