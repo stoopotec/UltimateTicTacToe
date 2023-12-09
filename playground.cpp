@@ -128,9 +128,9 @@ playground transform(playground& pg, unsigned char i) {
 
     playground npg = playground();
 
-    for (int y = 0; y < 9; y++)
-        for (int x = 0; x < 9; x++)
-            npg.set_cell_on_pos(mix * x + mjx * y + 4, miy * x + mjy * y + 4, pg.get_cell_on_pos(x - 4, y - 4));
+    for (int y = -4; y <= 4; y++)
+        for (int x = -4; x <= 4; x++)
+            npg.set_cell_on_pos(mix * x + mjx * y + 4, miy * x + mjy * y + 4, pg.get_cell_on_pos(x + 4, y + 4));
     
     return npg;
 }
