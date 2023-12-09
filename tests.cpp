@@ -10,9 +10,9 @@
 
 #define TEST_IS_VISUAL(X) (bool)(X & ~0b1)
 
-void gp(playground& g)
+void gp(playground& g, bool less)
 {
-    printf("board view:\n");
+    if (!less) printf("board view:\n");
     for (int y = 0; y < 9; y++)
     {
         for (int x = 0; x < 9; x++)
@@ -23,6 +23,7 @@ void gp(playground& g)
         putchar('\n');
     }
     putchar('\n');
+    if (less) return;
     printf("bits view:\n");
     printf("cell to char  |  byte\n");
     for (int i = 0; i < PLAYGROUND_BYTES; i++) {
@@ -78,13 +79,39 @@ int playground_get_set_test(bool visual)
                 std::cin.get();
                 ground.set_cell_on_pos(x, y, fill);
                 system("clear");
-                gp(ground);
+                gp(ground, false);
             }
             
     return TEST_VISUAL_SUCCESS;
 }
 
 
+
+
+int playground_transform_test(bool visual) {
+    if (!visual) return TEST_VISUAL_FAILURE;
+
+    playground g = playground();
+    g.set_cell_on_pos(0, 0, CELL_PL1);
+    g.set_cell_on_pos(1, 1, CELL_PL2);
+    g.set_cell_on_pos(2, 1, CELL_ERR);
+    g.set_cell_on_pos(7, 7, CELL_PL1);
+    g.set_cell_on_pos(0, 7, CELL_PL2);
+    g.set_cell_on_pos(7, 0, CELL_PL1);
+
+    printf("initial state:\n");
+    gp(g, true);
+
+    printf("press any key to see playground transform test\n");
+    std::cin.get();
+    for (unsigned char i = 0; i < 8; i++) {
+        printf("%i-th transform:\n", (int)i);
+        playground tg = transform(g, (int)i);
+        gp(tg, true);
+        std::cin.get();
+    }
+    return TEST_VISUAL_SUCCESS;
+}
 
 
 
@@ -96,13 +123,11 @@ int main(int argc, char** argv)
 
     vector<int (*)(bool)> tests = vector<int (*)(bool)>();
     
-    bool visual = false;
-    if (argc > 1) {
-        if (argv[1][0] == '-' && argv[1][1] == 'v' && argv[1][2] == '\0') visual = true;
-    }
+    bool visual = true;
 
 
     tests.push_back(playground_get_set_test);
+    tests.push_back(playground_transform_test);
 
 
     int total = 0;
