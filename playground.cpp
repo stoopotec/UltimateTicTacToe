@@ -130,7 +130,7 @@ playground transform(playground& pg, unsigned char i) {
 
     for (int y = 0; y < 9; y++)
         for (int x = 0; x < 9; x++)
-            npg.set_cell_on_pos(mix * x + mjx * y, miy * x + mjy * y, pg.get_cell_on_pos(x, y));
+            npg.set_cell_on_pos(mix * x + mjx * y + 4, miy * x + mjy * y + 4, pg.get_cell_on_pos(x - 4, y - 4));
     
     return npg;
 }
