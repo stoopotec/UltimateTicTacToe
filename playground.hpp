@@ -57,8 +57,14 @@ public:
     /// @param y максимум - get_side_size() * get_side_size() - 1
     void set_cell_on_pos(size_t x, size_t y, unsigned char c);
 
-    /// @brief ищет выигрыши
-    void update();
+    /// @brief делает ход на выбранную клетку
+    /// @param move 8 бит, первые 4 - кордината по x, последние 4 - кордината по y
+    /// @return если ход сделан успешно, true, иначе false
+    bool move(unsigned char move);
+
+    /// @brief делает ход на выбранную клетку
+    /// @return если ход сделан успешно, true, иначе false
+    bool move(int x, int y);
 
     /// @brief узнаёт, какой игрок сейчас должен ходить
     /// @return число 1 или 0. если 0, ходит второй игрок (нолик), если 1 - первый
