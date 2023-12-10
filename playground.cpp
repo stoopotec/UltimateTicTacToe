@@ -225,6 +225,13 @@ void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
     if (yinbox == 2) _set2(ground[ybox * 6 + 2 * xbox + 1], (xinbox + 1) * 2, c);
 }
 
+bool playground::move(int x, int y) {
+    x &= 0b1111;
+    y &= 0b1111;
+
+    return move((unsigned char)(x) + (unsigned char)(y << 4));
+}
+
 unsigned char playground::who_moves() {
     return _get1(ground[20], 2);
 }
