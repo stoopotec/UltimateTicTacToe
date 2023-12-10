@@ -8,11 +8,6 @@
 
 
 
-// color::color(unsigned char r, unsigned char g, unsigned char b) : r(r), g(g), b(b) { }
-// color::color(unsigned char gray) : r(gray), g(gray), b(gray) { }
-// color::color() : r(0), g(0), b(0) { }
-
-
 bool visible_char(char c) {
     return (c >= 33 && c <= 126);
 }

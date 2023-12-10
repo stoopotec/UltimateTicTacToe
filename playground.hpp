@@ -25,13 +25,6 @@ char cell_to_char(cell_t cell);
 #define PLAYGROUND_BYTES 21
 
 
-// struct color
-// {
-//     color(unsigned char r, unsigned char g, unsigned char b);
-//     color(unsigned char gray);
-//     color();
-//     unsigned char r, g, b;
-// };
 
 
 /// @brief РАБОТАЕТ ТОЛЬКО С ASCII, NO RUSSIAN!!
@@ -51,28 +44,25 @@ public:
     playground();
     ~playground();
 
-    /// @brief 
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - выход за пределы поля
+    /// @return если CELL_ERR - выход за пределы поля, иначе то, что вернулось
     cell_t get_cell_on_pos(size_t x, size_t y);
 
-    /// @brief
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
     void set_cell_on_pos(size_t x, size_t y, cell_t c);
 
-    /// @brief делает ход на выбранную клетку
-    /// @param move 8 бит, первые 4 - кордината по x, последние 4 - кордината по y
+    /// @brief делает ход текущим игроком на выбранную клетку
     /// @return если ход сделан успешно, true, иначе false
     bool move(pos_t move);
 
-    /// @brief делает ход на выбранную клетку
+    /// @brief делает ход текущим игроком на выбранную клетку
     /// @return если ход сделан успешно, true, иначе false
     bool move(int x, int y);
 
     /// @brief узнаёт, какой игрок сейчас должен ходить
-    /// @return число 1 или 0. если 0, ходит второй игрок (нолик), если 1 - первый
+    /// @return если не CELL_PL1 или CELL_PL2 - ходить больше нельзя
     cell_t get_who_moves();
 
     /// @return кординату на поле, куда можно ходить. Если любая кордината больше 2 - можно ходить куда угодно
@@ -92,8 +82,6 @@ int compare(playground& pg1, playground& pg2);
 playground transform(playground& pg, unsigned char i);
 
 /// @brief трансформирует pg так, чтобы compare(pg, transform(pg, n)) <= 0
-/// @param pg 
-/// @param transform_num 
 void min_transform(playground& pg, int& transform_num);
 
 /// @param moves_restrict массив (максимальный размер - 82 элемента) один ход - один байт (1 - 4 бит под x, 5 - 8 бит под y) конец массива - 0b11111111 (максимальное для unsigned char)
