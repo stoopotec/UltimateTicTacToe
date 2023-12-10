@@ -20,7 +20,7 @@ bool visible_char(char c) {
 
 /// @brief character equal
 /// @return если не равны - CELL_ERR (0b11), иначе один из тех равных символов
-unsigned char _cheq(unsigned char c1, unsigned char c2, unsigned char c3) {
+cell_t _cheq(cell_t c1, cell_t c2, cell_t c3) {
     if (c1 == c2 && c2 == c3)
         return c1; 
     return CELL_ERR; 
@@ -29,13 +29,13 @@ unsigned char _cheq(unsigned char c1, unsigned char c2, unsigned char c3) {
 /// @brief ищет победителя в игре в крестики-нолики
 /// @param cells массив из девяти ячеек (ячейки должны использовать только 2 первых бита)
 /// @return ячейка победителя если таковой имеется, иначе CELL_ERR (0b11)
-unsigned char who_win(unsigned char* cells) {
+cell_t who_win(cell_t* cells) {
 
     // 0 1 2
     // 3 4 5
     // 6 7 8
 
-    static unsigned char winner;
+    static cell_t winner;
     for (int i = 0; i < 3; i++) {
         winner = _cheq(cells[i*3 + 0], cells[i*3 + 1], cells[i*3 + 2]);
         if (winner != CELL_ERR && winner != CELL_SPACE) return winner;
@@ -87,7 +87,7 @@ inline          void _set1(unsigned char& cin, unsigned char i, unsigned char c)
 
 
 
-char cell_to_char(unsigned char cell) {
+char cell_to_char(cell_t cell) {
          if (cell == CELL_SPACE) return ' ';
     else if (cell == CELL_PL1)   return 'x';
     else if (cell == CELL_PL2)   return 'o';
@@ -188,7 +188,7 @@ unsigned char playground::get_cell_on_pos(size_t x, size_t y) {
 
 
 
-void playground::set_cell_on_pos(size_t x, size_t y, unsigned char c) {
+void playground::set_cell_on_pos(size_t x, size_t y, cell_t c) {
     if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
         return;
     // xbox - кордината коробки 3 на 3 (0, 1, 2)
@@ -229,13 +229,13 @@ bool playground::move(int x, int y) {
     x &= 0b1111;
     y &= 0b1111;
 
-    return move((unsigned char)(x) + (unsigned char)(y << 4));
+    return move((cell_t)(x) + (cell_t)(y << 4));
 }
 
-unsigned char playground::get_who_moves() {
+cell_t playground::get_who_moves() {
     return _get1(ground[20], 2);
 }
 
-unsigned char playground::get_move_cell() {
+pos_t playground::get_move_cell() {
     return (ground[20] & ~(unsigned char)0b111) >> 3;
 }

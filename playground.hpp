@@ -4,16 +4,21 @@
 
 #include "player.hpp"
 
+/// @brief actually - число от 0 до 4 (см CELL_... в playground.hpp)
+typedef unsigned char cell_t;
 
-#define CELL_SPACE 0b00
-#define CELL_PL1   0b01
-#define CELL_PL2   0b10
-#define CELL_ERR   0b11
+/// @brief actually - один байт, первые 4 бита которого - кордината по оси x, последние4 бита - кордината по оси y (тип беззнаковый)
+typedef unsigned char pos_t;
+
+#define CELL_SPACE (cell_t)0b00
+#define CELL_PL1   (cell_t)0b01
+#define CELL_PL2   (cell_t)0b10
+#define CELL_ERR   (cell_t)0b11
 
 /// @brief 
 /// @param cell число от 0 до 4
 /// @return символ, ассоциирующийся с номером клетки (см CELL_... в playground.hpp)
-char cell_to_char(unsigned char cell);
+char cell_to_char(cell_t cell);
 
 
 #define PLAYGROUND_SIDE_SIZE 3
@@ -37,7 +42,7 @@ bool visible_char(char c);
 /// @brief ищет победителя в игре в крестики-нолики
 /// @param cells массив из 9 ячеек
 /// @return '\0', если победителя нету, иначе ячейку ассоциируется с победителем
-unsigned char who_win(unsigned char* cells);
+cell_t who_win(cell_t* cells);
 
 
 struct playground
@@ -50,17 +55,17 @@ public:
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
     /// @return если 0 - то пусто, если 1 - то крестик, если 2 - то нолик, если 3 - выход за пределы поля
-    unsigned char get_cell_on_pos(size_t x, size_t y);
+    cell_t get_cell_on_pos(size_t x, size_t y);
 
     /// @brief
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    void set_cell_on_pos(size_t x, size_t y, unsigned char c);
+    void set_cell_on_pos(size_t x, size_t y, cell_t c);
 
     /// @brief делает ход на выбранную клетку
     /// @param move 8 бит, первые 4 - кордината по x, последние 4 - кордината по y
     /// @return если ход сделан успешно, true, иначе false
-    bool move(unsigned char move);
+    bool move(pos_t move);
 
     /// @brief делает ход на выбранную клетку
     /// @return если ход сделан успешно, true, иначе false
@@ -68,10 +73,10 @@ public:
 
     /// @brief узнаёт, какой игрок сейчас должен ходить
     /// @return число 1 или 0. если 0, ходит второй игрок (нолик), если 1 - первый
-    unsigned char get_who_moves();
+    cell_t get_who_moves();
 
     /// @return кординату на поле, куда можно ходить. Если любая кордината больше 2 - можно ходить куда угодно
-    unsigned char get_move_cell();
+    pos_t get_move_cell();
 
     unsigned char* get_ground() { return ground; }
 private:
