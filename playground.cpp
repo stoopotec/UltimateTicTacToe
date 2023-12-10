@@ -228,9 +228,9 @@ bool playground::move(int x, int y) {
 }
 
 cell_t playground::get_who_moves() {
-    return _get1(ground[20], 2);
+    return _get2(ground[20], 2);
 }
 
 pos_t playground::get_move_cell() {
-    return (ground[20] & ~(unsigned char)0b111) >> 3;
+    return (ground[20] & ~(unsigned char)0b1111) >> 4;
 }
