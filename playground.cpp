@@ -232,10 +232,10 @@ bool playground::move(int x, int y) {
     return move((unsigned char)(x) + (unsigned char)(y << 4));
 }
 
-unsigned char playground::who_moves() {
+unsigned char playground::get_who_moves() {
     return _get1(ground[20], 2);
 }
 
-unsigned char playground::where_to_move() {
+unsigned char playground::get_move_cell() {
     return (ground[20] & ~(unsigned char)0b111) >> 3;
 }

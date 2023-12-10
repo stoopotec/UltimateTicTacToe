@@ -68,11 +68,10 @@ public:
 
     /// @brief узнаёт, какой игрок сейчас должен ходить
     /// @return число 1 или 0. если 0, ходит второй игрок (нолик), если 1 - первый
-    unsigned char who_moves();
+    unsigned char get_who_moves();
 
-    /// @brief 
-    /// @return номер блока, куда можно ходить. ЕСЛИ НОМЕР БОЛЬШЕ 8 - можно ходить куда угодно
-    unsigned char where_to_move();
+    /// @return кординату на поле, куда можно ходить. Если любая кордината больше 2 - можно ходить куда угодно
+    unsigned char get_move_cell();
 
     unsigned char* get_ground() { return ground; }
 private:
