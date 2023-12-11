@@ -44,6 +44,9 @@ cell_t who_win(cell_t* cells) {
     winner = _cheq(cells[6], cells[4], cells[2]);
     if (winner != CELL_ERR && winner != CELL_SPACE) return winner;
 
+    for (int i = 0; i < 9; i++)
+        if (cells[i] == CELL_SPACE) return CELL_SPACE;
+
     return CELL_ERR;
 }
 
