@@ -91,6 +91,15 @@ char cell_to_char(cell_t cell) {
 }
 
 
+pos_t coord_to_pos(unsigned char x, unsigned char y) {
+    return x | (y << 4);
+}
+
+void pos_to_coord(unsigned char& x, unsigned char& y, pos_t pos) {
+    x = pos & 0b1111;
+    y = pos >> 4;
+}
+
 
 int compare(playground& pg1, playground& pg2) {
     unsigned char* pgg1 = pg1.get_ground();
