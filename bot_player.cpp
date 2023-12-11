@@ -31,5 +31,13 @@ double rate(playground& ground)
 }
 
 void BotPlayer::next_move(int& x, int& y, playground& playground) {
-    
+    static pos_t moves[82];
+    int moves_count = 0;
+    generate_legal_moves(playground, moves);
+    for (int i = 0; i < 82; i++)
+        if (moves[i] == POS_MAX) moves_count = i;
+
+    int rand_move = (int)((double)rand() / (double)RAND_MAX * (double)(moves_count - 1));
+
+    return moves[rand_move];
 }
