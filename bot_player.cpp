@@ -30,7 +30,7 @@ double rate(playground& ground)
     return ((double)xmo / 81.0) * 0.5 + 0.5;
 }
 
-void BotPlayer::next_move(int& x, int& y, playground& playground) {
+void BotPlayer::next_move(pos_t& pos, playground& playground) {
     static pos_t moves[82];
     int moves_count = 0;
     generate_legal_moves(playground, moves);
