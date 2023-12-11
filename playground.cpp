@@ -21,9 +21,6 @@ cell_t _cheq(cell_t c1, cell_t c2, cell_t c3) {
     return CELL_ERR; 
 }
 
-/// @brief ищет победителя в игре в крестики-нолики
-/// @param cells массив из девяти ячеек (ячейки должны использовать только 2 первых бита)
-/// @return ячейка победителя если таковой имеется, иначе CELL_ERR (0b11)
 cell_t who_win(cell_t* cells) {
 
     // 0 1 2
