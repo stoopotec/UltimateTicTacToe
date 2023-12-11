@@ -32,14 +32,14 @@
 
 индекс | матрица | описание трансформации
 -|-|-
-000 | $$\begin{bmatrix} 1& 0\\ 0& 1\end{bmatrix}$$ | без изменений
-001 | $$\begin{bmatrix}-1& 0\\ 0& 1\end{bmatrix}$$ | отражение по вертикали
-010 | $$\begin{bmatrix} 1& 0\\ 0&-1\end{bmatrix}$$ | отражение по горизонтали
-011 | $$\begin{bmatrix}-1& 0\\ 0&-1\end{bmatrix}$$ | поворот на $$180\degree$$
-100 | $$\begin{bmatrix} 0& 1\\ 1& 0\end{bmatrix}$$ | отражение относительно прямой $$y=x$$
-101 | $$\begin{bmatrix} 0&-1\\ 1& 0\end{bmatrix}$$ | поворот против часовой стрелки на $$90\degree$$
-110 | $$\begin{bmatrix} 0& 1\\-1& 0\end{bmatrix}$$ | поворот по часовой стрелке на $$90\degree$$
-111 | $$\begin{bmatrix} 0&-1\\-1& 0\end{bmatrix}$$ | отражение относительно прямой $$y=-x$$
+000 | $\begin{bmatrix} 1& 0\\ 0& 1\end{bmatrix}$ | без изменений
+001 | $\begin{bmatrix}-1& 0\\ 0& 1\end{bmatrix}$ | отражение по вертикали
+010 | $\begin{bmatrix} 1& 0\\ 0&-1\end{bmatrix}$ | отражение по горизонтали
+011 | $\begin{bmatrix}-1& 0\\ 0&-1\end{bmatrix}$ | поворот на $$180\degree$$
+100 | $\begin{bmatrix} 0& 1\\ 1& 0\end{bmatrix}$ | отражение относительно прямой $$y=x$$
+101 | $\begin{bmatrix} 0&-1\\ 1& 0\end{bmatrix}$ | поворот против часовой стрелки на $$90\degree$$
+110 | $\begin{bmatrix} 0& 1\\-1& 0\end{bmatrix}$ | поворот по часовой стрелке на $$90\degree$$
+111 | $\begin{bmatrix} 0&-1\\-1& 0\end{bmatrix}$ | отражение относительно прямой $$y=-x$$
 
 здесь третий бит отвечает за расположение единиц по побочной / главной диагонали
 
