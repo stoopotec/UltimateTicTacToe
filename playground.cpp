@@ -334,4 +334,5 @@ void generate_legal_moves(playground& pg, pos_t* moves_restrict) {
                     }
             }
     }
+    moves_restrict[moves_len] = POS_MAX;
 }
