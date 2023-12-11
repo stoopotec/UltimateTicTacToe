@@ -226,6 +226,28 @@ void playground::set_cell(pos_t pos, cell_t c) {
     if (yinbox == 2) _set2(ground[ybox * 6 + 2 * xbox + 1], (xinbox + 1) * 2, c);
 }
 
+bool playground::move(pos_t pos) {
+    
+    cell_t move_cell_c = get_cell(pos);
+    if (move_cell_c != CELL_SPACE) return false;
+
+    pos_t move_box_p = get_move_box();
+
+
+    pos_t wanna_move_box_p;
+    wanna_move_box_p = (pos & 0b1111) % PLAYGROUND_SIDE_SIZE;
+    wanna_move_box_p |= ((pos >> 4) % PLAYGROUND_SIDE_SIZE) << 4;
+
+
+    if (move_box_p != POS_MAX && wanna_move_box_p != move_box_p) return false;
+
+    cell_t who_move = get_who_moves();
+    if (who_move != CELL_PL1 && who_move != CELL_PL2) return false;
+
+    set_cell(pos, who_move);
+    swap_players();
+}
+
 bool playground::move(int x, int y) {
     x &= 0b1111;
     y &= 0b1111;
