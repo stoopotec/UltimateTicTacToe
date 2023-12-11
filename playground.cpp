@@ -276,6 +276,20 @@ void playground::set_move_box(pos_t pos) {
 
 }
 
+static cell_t cells[9];
+bool playground::is_box_marked(pos_t pos) {
+    static int i;
+    i = 0;
+    for (int y = 0; y < 2; y++)
+        for (int x = 0; x < 2; x++)
+        {
+            cells[i] = get_cell(pos + x + (y << 4));
+            i++;
+        }
+    
+    return !(who_win(cells) == CELL_SPACE);
+}
+
 void generate_legal_moves(playground& pg, pos_t* moves_restrict) {
     pos_t move_box = pg.get_move_box();
     int moves_len = 0;
