@@ -122,7 +122,7 @@ playground transform(playground& pg, unsigned char i) {
 
     for (int y = -4; y <= 4; y++)
         for (int x = -4; x <= 4; x++)
-            npg.set_cell(mix * x + mjx * y + 4, miy * x + mjy * y + 4, pg.get_cell(x + 4, y + 4));
+            npg.set_cell((mix * x + mjx * y + 4) | ((miy * x + mjy * y + 4) << 4), pg.get_cell((x + 4) | ((y + 4) << 4)));
     
     return npg;
 }
@@ -135,7 +135,10 @@ playground::playground() {
 }
 playground::~playground() { }
 
-unsigned char playground::get_cell(size_t x, size_t y) {
+unsigned char playground::get_cell(pos_t pos) {
+    static size_t x, y;
+    x = pos & 0b1111;
+    y = pos >> 4;
     if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
         return CELL_ERR;
     // xbox - кордината коробки 3 на 3 (0, 1, 2)
@@ -180,7 +183,10 @@ unsigned char playground::get_cell(size_t x, size_t y) {
 
 
 
-void playground::set_cell(size_t x, size_t y, cell_t c) {
+void playground::set_cell(pos_t pos, cell_t c) {
+    static size_t x, y;
+    x = pos & 0b1111;
+    y = pos >> 4;
     if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
         return;
     // xbox - кордината коробки 3 на 3 (0, 1, 2)
@@ -278,7 +284,7 @@ void generate_legal_moves(playground& pg, pos_t* moves_restrict) {
                 for (int y = 0; y < 2; y++)
                     for (int x = 0; x < 2; x++)
                     {
-                        if (pg.get_cell(xb * 3 + x, yb * 3 + y) == CELL_SPACE) {
+                        if (pg.get_cell((xb * 3 + x) | ((yb * 3 + y) << 4)) == CELL_SPACE) {
                             moves_restrict[moves_len] = (xb * 3 + x) | ((yb * 3 + y) << 4);
                             moves_len++;
                         }
