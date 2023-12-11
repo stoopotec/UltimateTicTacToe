@@ -101,12 +101,26 @@ int main(int argc, char** argv)
     // ЭТО ПРИМЕР!!!! желательно делать так, но если что-то придумаешь прикольное, то можешь мне предложить и делать
 
     // массив из указателей на Player, нужно для апкаста. (watch extremecode)
-    Player* players[2];
 
-    ConsolePlayer p1 = ConsolePlayer();
-    players[0] = &p1;
-    ConsolePlayer p2 = ConsolePlayer();
-    players[1] = &p2;
+    RenderWindow window(VideoMode(WindowSize, WindowSize), "UltimateTicTacToe");
 
-    playground ground = playground();
+    initGrid(size);
+
+    while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+            }
+        }
+
+
+        window.clear(Color::Red);
+        drawGrid(window);
+        window.display();
+    }
+
+
+    //commit
+    return 0;
 }
