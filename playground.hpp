@@ -15,6 +15,8 @@ typedef unsigned char pos_t;
 #define CELL_PL2   (cell_t)0b10
 #define CELL_ERR   (cell_t)0b11
 
+#define POS_MAX    (~(pos_t)0b0)
+
 /// @brief 
 /// @param cell число от 0 до 4
 /// @return символ, ассоциирующийся с номером клетки (см CELL_... в playground.hpp)
