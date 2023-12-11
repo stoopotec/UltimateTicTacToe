@@ -49,11 +49,11 @@ public:
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
     /// @return если CELL_ERR - выход за пределы поля, иначе то, что вернулось
-    cell_t get_cell_on_pos(size_t x, size_t y);
+    cell_t get_cell(size_t x, size_t y);
 
     /// @param x максимум - get_side_size() * get_side_size() - 1
     /// @param y максимум - get_side_size() * get_side_size() - 1
-    void set_cell_on_pos(size_t x, size_t y, cell_t c);
+    void set_cell(size_t x, size_t y, cell_t c);
 
     /// @brief делает ход текущим игроком на выбранную клетку
     /// @return если ход сделан успешно, true, иначе false

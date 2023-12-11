@@ -125,7 +125,7 @@ playground transform(playground& pg, unsigned char i) {
 
     for (int y = -4; y <= 4; y++)
         for (int x = -4; x <= 4; x++)
-            npg.set_cell_on_pos(mix * x + mjx * y + 4, miy * x + mjy * y + 4, pg.get_cell_on_pos(x + 4, y + 4));
+            npg.set_cell(mix * x + mjx * y + 4, miy * x + mjy * y + 4, pg.get_cell(x + 4, y + 4));
     
     return npg;
 }
@@ -138,7 +138,7 @@ playground::playground() {
 }
 playground::~playground() { }
 
-unsigned char playground::get_cell_on_pos(size_t x, size_t y) {
+unsigned char playground::get_cell(size_t x, size_t y) {
     if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
         return CELL_ERR;
     // xbox - кордината коробки 3 на 3 (0, 1, 2)
@@ -183,7 +183,7 @@ unsigned char playground::get_cell_on_pos(size_t x, size_t y) {
 
 
 
-void playground::set_cell_on_pos(size_t x, size_t y, cell_t c) {
+void playground::set_cell(size_t x, size_t y, cell_t c) {
     if (x >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE || y >= PLAYGROUND_SIDE_SIZE * PLAYGROUND_SIDE_SIZE) 
         return;
     // xbox - кордината коробки 3 на 3 (0, 1, 2)
