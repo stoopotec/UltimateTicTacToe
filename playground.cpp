@@ -227,10 +227,45 @@ bool playground::move(int x, int y) {
     return move((cell_t)(x) + (cell_t)(y << 4));
 }
 
+inline pos_t index_to_pos(pos_t index, unsigned char side_size) {
+    pos_t pos = index % side_size;
+    pos += ((index - pos) / side_size) << 4;
+}
+
+inline pos_t pos_to_index(pos_t pos, unsigned char side_size) {
+    return (pos >> 4) * side_size + (pos & (pos_t)0b1111);
+}
+
 cell_t playground::get_who_moves() {
     return _get2(ground[20], 2);
 }
 
-pos_t playground::get_move_cell() {
-    return (ground[20] & ~(unsigned char)0b1111) >> 4;
+pos_t playground::get_move_box() {
+
+    //    0 1 2    
+    //
+    // 0  0 1 2
+    // 1  3 4 5
+    // 2  6 7 8
+
+
+    return index_to_pos((ground[20] & ~(unsigned char)0b1111) >> 4, 3);
+}
+
+
+void playground::set_who_moves(cell_t cell) {
+    _set2(ground[20], 2, cell);
+}
+
+void playground::set_move_box(pos_t pos) {
+
+    //    0 1 2    
+    //
+    // 0  0 1 2
+    // 1  3 4 5
+    // 2  6 7 8
+
+    ground[20] &= ~(unsigned char)0b1111;
+    ground[20] |= pos_to_index(pos, 3) << 4;
+
 }

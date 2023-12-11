@@ -66,14 +66,14 @@ public:
     cell_t get_who_moves();
 
     /// @return кординату на поле, куда можно ходить. Если любая кордината больше 2 - можно ходить куда угодно
-    pos_t get_move_cell();
+    pos_t get_move_box();
 
     /// @brief записывает, какой игрок сейчас должен ходить
     /// @param cell CELL_PL1 или CELL_PL2, иначе не запишется
     void set_who_moves(cell_t cell);
 
     /// @param pos кордината на поле, куда можно ходить. Если любая кордината больше 2 - ничего не запишется
-    void set_move_cell(pos_t pos);
+    void set_move_box(pos_t pos);
 
     unsigned char* get_ground() { return ground; }
 private:
