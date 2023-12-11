@@ -17,7 +17,7 @@ void gp(playground& g, bool less)
     {
         for (int x = 0; x < 9; x++)
         {
-            unsigned char c = g.get_cell_on_pos(x, y);
+            unsigned char c = g.get_cell(coord_to_pos(x, y));
             char ctc = cell_to_char(c);
             if (ctc == ' ') ctc = '_';
             putchar(ctc);
@@ -55,17 +55,17 @@ int playground_get_set_test(bool visual)
     //     for (int y = 0; y < 9; y++)
     //         for (int x = 0; x < 9; x++)
     //         {
-    //             ground.set_cell_on_pos(x, y, fill);
+    //             ground.set_cell(x, y, fill);
     //             for (int yy = 0; yy < 9; yy++)
     //                 for (int xx = 0; xx < 9; xx++)
     //                 {
-    //                     unsigned char cc = ground.get_cell_on_pos(xx, yy);
+    //                     unsigned char cc = ground.get_cell(xx, yy);
     //                     if (xx == x && yy == x) {
     //                         if (cc != fill) return TEST_FAILURE;
     //                     }
     //                     else if (cc != CELL_SPACE) return TEST_FAILURE;
     //                 }
-    //             ground.set_cell_on_pos(x, y, CELL_SPACE);
+    //             ground.set_cell(x, y, CELL_SPACE);
     //         }
 
     // return TEST_SUCCESS;
@@ -79,7 +79,7 @@ int playground_get_set_test(bool visual)
             for (int x = 0; x < 9; x++)
             {
                 std::cin.get();
-                ground.set_cell_on_pos(x, y, fill);
+                ground.set_cell(coord_to_pos(x, y), fill);
                 system("clear");
                 gp(ground, false);
             }
@@ -94,25 +94,25 @@ int playground_transform_test(bool visual) {
     if (!visual) return TEST_VISUAL_FAILURE;
 
     playground g = playground();
-    g.set_cell_on_pos(0, 0, CELL_PL1);
-    g.set_cell_on_pos(1, 1, CELL_PL1);
-    g.set_cell_on_pos(1, 0, CELL_PL1);
-    g.set_cell_on_pos(0, 1, CELL_PL1);
+    g.set_cell(coord_to_pos(0, 0), CELL_PL1);
+    g.set_cell(coord_to_pos(1, 1), CELL_PL1);
+    g.set_cell(coord_to_pos(1, 0), CELL_PL1);
+    g.set_cell(coord_to_pos(0, 1), CELL_PL1);
 
-    g.set_cell_on_pos(7, 7, CELL_ERR);
-    g.set_cell_on_pos(8, 8, CELL_ERR);
-    g.set_cell_on_pos(8, 7, CELL_ERR);
-    g.set_cell_on_pos(7, 8, CELL_ERR);
+    g.set_cell(coord_to_pos(7, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(8, 8), CELL_ERR);
+    g.set_cell(coord_to_pos(8, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(7, 8), CELL_ERR);
 
-    g.set_cell_on_pos(7, 0, CELL_PL2);
-    g.set_cell_on_pos(8, 1, CELL_PL2);
-    g.set_cell_on_pos(8, 0, CELL_PL2);
-    g.set_cell_on_pos(7, 1, CELL_PL2);
+    g.set_cell(coord_to_pos(7, 0), CELL_PL2);
+    g.set_cell(coord_to_pos(8, 1), CELL_PL2);
+    g.set_cell(coord_to_pos(8, 0), CELL_PL2);
+    g.set_cell(coord_to_pos(7, 1), CELL_PL2);
 
-    g.set_cell_on_pos(0, 7, CELL_ERR);
-    g.set_cell_on_pos(1, 8, CELL_ERR);
-    g.set_cell_on_pos(1, 7, CELL_ERR);
-    g.set_cell_on_pos(0, 8, CELL_ERR);
+    g.set_cell(coord_to_pos(0, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(1, 8), CELL_ERR);
+    g.set_cell(coord_to_pos(1, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(0, 8), CELL_ERR);
 
 
     printf("initial state:\n");
@@ -142,7 +142,7 @@ int main(int argc, char** argv)
     bool visual = true;
 
 
-    //tests.push_back(playground_get_set_test);
+    tests.push_back(playground_get_set_test);
     tests.push_back(playground_transform_test);
 
 

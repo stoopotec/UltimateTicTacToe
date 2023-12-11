@@ -3,6 +3,7 @@
 #include "playground.hpp"
 
 struct playground;
+typedef unsigned char pos_t;
 
 class Player
 {
