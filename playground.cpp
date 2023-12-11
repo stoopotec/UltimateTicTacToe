@@ -268,6 +268,10 @@ cell_t playground::get_who_moves() {
     return _get2(ground[20], 2);
 }
 
+void playground::swap_players() {
+    ground[20] ^= 0b1100;
+}
+
 pos_t playground::get_move_box() {
 
     //    0 1 2    
