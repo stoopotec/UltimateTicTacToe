@@ -1,5 +1,22 @@
 # Ultimate Tic Tac Toe
 
+## Как скомпилировать?
+
+### Linux
+
+1. Установить SFML
+    - в своём пакетном менеджере установи SFML, например: 
+        - `sudo pacman -S SFML`
+        - `sudo apt install SFML`
+2. Клонировать репозиторий
+3. Запустить `compile_linux.sh`
+
+
+### Windows
+
+$$\dots$$
+
+
 ## Правила
 [Правила из википедии](https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe#Rules)
 
