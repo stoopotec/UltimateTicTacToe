@@ -10,15 +10,21 @@ BotPlayer::BotPlayer() { }
 double rate(playground& ground)
 {
     // x - o, тоесть количество поставленных и доступных крестиков минус ноликов (крестик - первый игрок, нолик- второй игрок)
-    static int xmo, x, y, c;
+    static char xmo;
+    static char xb, yb, x, y, c;
     xmo = 0;
 
-    for (x = 0; x < 9; x++) 
-        for (y = 0; y < 9; y++)
+    for (xb = 0; xb < 2; xb++)
+        for (yb = 0; yb < 2; yb++) 
         {
-            c = ground.get_cell_on_pos(x, y);
-            if (c == CELL_PL1) xmo++;
-            if (c == CELL_PL2) xmo--;
+            if (!ground.is_box_marked(xb | (yb << 4)))
+            for (x = 0; x < 2; x++) 
+                for (y = 0; y < 2; y++)
+                {
+                    c = ground.get_cell((xb*3+x) | ((yb*3+x) << 4));
+                    if (c == CELL_PL1) xmo++;
+                    if (c == CELL_PL2) xmo--;
+                }
         }
 
     return ((double)xmo / 81.0) * 0.5 + 0.5;
