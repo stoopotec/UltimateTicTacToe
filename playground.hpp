@@ -23,6 +23,14 @@ typedef unsigned char pos_t;
 char cell_to_char(cell_t cell);
 
 
+/// @brief проебразует 2 кординаты в pos_t
+/// @param x максимум - 15
+/// @param y максимум - 15
+pos_t coord_to_pos(unsigned char x, unsigned char y);
+
+/// @brief преобразует pos_t в 2 кординаты
+void pos_to_coord(unsigned char& x, unsigned char& y, pos_t pos);
+
 #define PLAYGROUND_SIDE_SIZE 3
 #define PLAYGROUND_BYTES 21
 
