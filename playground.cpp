@@ -266,3 +266,23 @@ void playground::set_move_box(pos_t pos) {
     ground[20] |= pos_to_index(pos, 3) << 4;
 
 }
+
+void generate_legal_moves(playground& pg, pos_t* moves_restrict) {
+    pos_t move_box = pg.get_move_box();
+    int moves_len = 0;
+    if (move_box >> 4 > 2 || move_box & 0b1111 > 2) {
+        for (int yb = 0; yb < 2; yb++)
+            for (int xb = 0; xb < 2; xb++)
+            {
+                if (pg.is_box_marked(xb | (yb << 4))) continue;
+                for (int y = 0; y < 2; y++)
+                    for (int x = 0; x < 2; x++)
+                    {
+                        if (pg.get_cell(xb * 3 + x, yb * 3 + y) == CELL_SPACE) {
+                            moves_restrict[moves_len] = (xb * 3 + x) | ((yb * 3 + y) << 4);
+                            moves_len++;
+                        }
+                    }
+            }
+    }
+}
