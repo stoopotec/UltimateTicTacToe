@@ -77,6 +77,10 @@ public:
     /// @param pos кордината коробки на поле, куда можно ходить. Если любая кордината больше 2 - ничего не запишется
     void set_move_box(pos_t pos);
 
+    /// @param pos кордината коробки (see pos_t в playground.hpp)
+    /// @return если коробка сыграна в ничью, или кто-то на ней победил - возвращает true, иначе false
+    bool is_box_marked(pos_t pos);
+
     unsigned char* get_ground() { return ground; }
 private:
     unsigned char ground[PLAYGROUND_BYTES];
