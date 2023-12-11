@@ -39,5 +39,5 @@ void BotPlayer::next_move(pos_t& pos, playground& playground) {
 
     int rand_move = (int)((double)rand() / (double)RAND_MAX * (double)(moves_count - 1));
 
-    return moves[rand_move];
+    pos = moves[rand_move];
 }
