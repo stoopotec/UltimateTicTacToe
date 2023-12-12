@@ -4,7 +4,6 @@
 ConsolePlayer::ConsolePlayer() { }
 
 
-void ConsolePlayer::next_move(int& x, int& y, playground& playground) {
-    x = 0;
-    y = 0;
+void ConsolePlayer::next_move(pos_t& pos, playground& playground) {
+    pos = POS_MAX;
 }
