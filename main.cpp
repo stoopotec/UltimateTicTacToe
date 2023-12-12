@@ -1,7 +1,9 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
+
 #include "playground.hpp"
 #include "player.hpp"
-#include <SFML/Graphics.hpp>
+#include "interface.hpp"
 
 using namespace sf;
 
@@ -104,7 +106,28 @@ int main(int argc, char** argv)
 
     RenderWindow window(VideoMode(WindowSize, WindowSize), "UltimateTicTacToe");
 
-    initGrid(size);
+    playground g = playground();
+    Grid grid = Grid(&g, sf::Vector2f(500, 500));
+
+    g.set_cell(coord_to_pos(0, 0), CELL_PL1);
+    g.set_cell(coord_to_pos(1, 1), CELL_PL1);
+    g.set_cell(coord_to_pos(1, 0), CELL_PL1);
+    g.set_cell(coord_to_pos(0, 1), CELL_PL1);
+
+    g.set_cell(coord_to_pos(7, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(8, 8), CELL_ERR);
+    g.set_cell(coord_to_pos(8, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(7, 8), CELL_ERR);
+
+    g.set_cell(coord_to_pos(7, 0), CELL_PL2);
+    g.set_cell(coord_to_pos(8, 1), CELL_PL2);
+    g.set_cell(coord_to_pos(8, 0), CELL_PL2);
+    g.set_cell(coord_to_pos(7, 1), CELL_PL2);
+
+    g.set_cell(coord_to_pos(0, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(1, 8), CELL_ERR);
+    g.set_cell(coord_to_pos(1, 7), CELL_ERR);
+    g.set_cell(coord_to_pos(0, 8), CELL_ERR);
 
     while (window.isOpen()) {
         Event event;
@@ -115,12 +138,11 @@ int main(int argc, char** argv)
         }
 
 
-        window.clear(Color::Red);
-        drawGrid(window);
+        window.clear(Color::Magenta);
+        window.draw(grid);
         window.display();
     }
 
 
-    //commit
     return 0;
 }
