@@ -1,13 +1,25 @@
 # Ultimate Tic Tac Toe
 
+## Как запустить?
+
+### Linux
+
+0. Если вам не нужны всякие новомодные графические интерфейсы, просто запустите программу в ключом `--nogui`
+1. [Установить SFML 2.6](https://www.sfml-dev.org/tutorials/2.6/start-linux.php#installing-sfml)
+2. Запустить программу
+
+
+### Windows
+
+$$\dots$$
+
+
+
 ## Как скомпилировать?
 
 ### Linux
 
-1. Установить SFML
-    - в своём пакетном менеджере установи SFML, например: 
-        - `sudo pacman -S SFML`
-        - `sudo apt install SFML`
+1. [Установить SFML 2.6](https://www.sfml-dev.org/tutorials/2.6/start-linux.php#installing-sfml)
 2. Клонировать репозиторий
 3. Запустить `compile_linux.sh`
 
