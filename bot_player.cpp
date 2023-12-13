@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 
-BotPlayer::BotPlayer() { }
+BotPlayer::BotPlayer(void (*move)(pos_t pos)) : Player(move) { }
 
 
 /// @brief рассичтывает примерный "шанс" победить первому (крестик) игроку
@@ -30,7 +30,7 @@ double rate(playground& ground)
     return ((double)xmo / 81.0) * 0.5 + 0.5;
 }
 
-void BotPlayer::next_move(pos_t& pos, playground& playground) {
+void BotPlayer::prepare_move(playground& playground) {
     static pos_t moves[82];
     int moves_count = 0;
     generate_legal_moves(playground, moves);
@@ -39,5 +39,5 @@ void BotPlayer::next_move(pos_t& pos, playground& playground) {
 
     int rand_move = (int)((double)rand() / (double)RAND_MAX * (double)(moves_count - 1));
 
-    pos = moves[rand_move];
+    move(moves[rand_move]);
 }

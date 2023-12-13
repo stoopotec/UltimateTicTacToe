@@ -21,8 +21,10 @@ int main(int argc, char** argv)
     Box body = Box((sf::Vector2f)window.getSize(), resources);
 
     playground g = playground();
-    Grid grid = Grid(g, sf::Vector2f(600, 600), resources);
+    Grid grid = Grid(g, nullptr, sf::Vector2f(600, 600), resources);
     body.Childs.push_back(&grid);
+
+    Player *player1, *player2;
 
     // g.set_cell(coord_to_pos(0, 0), CELL_PL1);
     // g.set_cell(coord_to_pos(1, 1), CELL_PL1);
@@ -73,7 +75,6 @@ int main(int argc, char** argv)
             }
             if (event.type == Event::MouseMoved) {
                 mousePos = (Vector2u)mouse.getPosition(window);
-                body.processClick(mousePos);
             }
             if (event.type == Event::MouseButtonPressed) {
                 mousePos = (Vector2u)mouse.getPosition(window);

@@ -8,20 +8,24 @@ typedef unsigned char pos_t;
 class Player
 {
 public:
-    Player();
-    virtual void next_move(pos_t& pos, playground& playground) = 0;
-};
+    Player(void (*move)(pos_t pos));
 
-class ConsolePlayer : public Player
-{
-public:
-    ConsolePlayer();
-    void next_move(pos_t& pos, playground& playground) override;
+    virtual void prepare_move(playground& ground) = 0;
+protected:
+    void (*move)(pos_t pos);
 };
 
 class BotPlayer : public Player
 {
 public:
-    BotPlayer();
-    void next_move(pos_t& pos, playground& playground) override;
+    BotPlayer(void (*move)(pos_t pos));
+
+    void prepare_move(playground& ground);
+};
+
+class GraphicPlayer : public Player
+{
+    GraphicPlayer(void (*move)(pos_t pos));
+
+    void prepare_move(playground& ground);
 };

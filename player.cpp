@@ -6,5 +6,5 @@
 
 
 
-Player::Player() { }
+Player::Player(void (*move)(pos_t pos)) : move(move) { }
 

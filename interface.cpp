@@ -34,7 +34,8 @@ void Box::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-Grid::Grid(playground& ground, sf::Vector2f size, Resources& resources) : Box(size, resources), ground(ground) { }
+Grid::Grid(playground& ground, void (*process_click)(pos_t pos), sf::Vector2f size, Resources& resources) 
+    : Box(size, resources), ground(ground), process_click(process_click) { }
 
 void Grid::processClick(sf::Vector2u& pos) {
     Box::processClick(pos);

@@ -43,7 +43,7 @@ class Grid : public Box
 {
 public:
 
-    Grid(playground& ground, sf::Vector2f size, Resources& resources);
+    Grid(playground& ground, void (*process_click)(pos_t pos), sf::Vector2f size, Resources& resources);
 
     void processClick(sf::Vector2u& pos) override;
 private:
@@ -51,4 +51,6 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     playground& ground;
+
+    void (*process_click)(pos_t pos);
 };
