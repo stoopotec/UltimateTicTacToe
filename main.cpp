@@ -63,6 +63,9 @@ int main(int argc, char** argv)
             if (event.type == Event::Closed) {
                 window.close();
             }
+            if (event.type == Event::Resized) {
+                window.setView(View(sf::FloatRect(Vector2f(0.0f, 0.0f), (Vector2f)window.getSize())));
+            }
         }
 
 
