@@ -255,6 +255,7 @@ bool playground::move(pos_t pos) {
 
     set_cell(pos, who_move);
     swap_players();
+    return true;
 }
 
 bool playground::move(int x, int y) {
@@ -267,6 +268,7 @@ bool playground::move(int x, int y) {
 inline pos_t index_to_pos(pos_t index, unsigned char side_size) {
     pos_t pos = index % side_size;
     pos += ((index - pos) / side_size) << 4;
+    return pos;
 }
 
 inline pos_t pos_to_index(pos_t pos, unsigned char side_size) {
