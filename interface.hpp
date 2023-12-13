@@ -24,9 +24,17 @@ public:
     Box(sf::Vector2f size, Resources& resources);
 
     sf::Vector2f GetSize();
+
+    virtual void processClick(sf::Vector2u& pos);
+
+    std::vector<Box*> Childs;
+
 protected:
     sf::Vector2f size;
     Resources& resources;
+
+private:
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 
@@ -37,7 +45,7 @@ public:
 
     Grid(playground& ground, sf::Vector2f size, Resources& resources);
 
-
+    void processClick(sf::Vector2u& pos) override;
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

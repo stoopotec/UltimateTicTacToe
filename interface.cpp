@@ -21,20 +21,41 @@ Box::Box(sf::Vector2f size, Resources& resources) : size(size), resources(resour
 
 sf::Vector2f Box::GetSize() { return size; }
 
+void Box::processClick(sf::Vector2u& pos) {
+    for (int i = 0; i < Childs.size(); ++i) {
+        Childs[i]->processClick(pos);
+    }
+}
 
+void Box::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    states.transform *= this->getTransform();
+    for (int i = 0; i < Childs.size(); ++i)
+        target.draw(*Childs[i], states);
+}
 
 
 Grid::Grid(playground& ground, sf::Vector2f size, Resources& resources) : Box(size, resources), ground(ground) { }
 
+void Grid::processClick(sf::Vector2u& pos) {
+    Box::processClick(pos);
+    sf::Vector2f rel_pos = (sf::Vector2f)pos - getPosition();
+    if (rel_pos.x > size.x || rel_pos.y > size.y) return;
+
+    rel_pos = sf::Vector2f(rel_pos.x / size.x * 9.0f, rel_pos.y / size.y * 9.0f);
+
+    ground.set_cell(coord_to_pos(rel_pos.x, rel_pos.y), ground.get_cell(coord_to_pos(rel_pos.x, rel_pos.y)) ^ 0b11);
+
+}
 
 sf::ConvexShape buffer_convex_shape = sf::ConvexShape();
 sf::CircleShape buffer_circle_shape = sf::CircleShape();
+
 
 void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // нужно для того, чтобы трансформации применялись от класса к классу как родители с детьми в html
     states.transform *= this->getTransform();
 
-    sf::Vector2f cell_size = size / 9.0f - sf::Vector2f(9 + 9/3, 9 + 9/3);
+    sf::Vector2f cell_size = (size - sf::Vector2f(9 + 9/3, 9 + 9/3)) / 9.0f;
     sf::Vector2f totalSpaceing = sf::Vector2f(0.0f, 0.0f);
     for (int y = 0; y < 9; ++y)
     {
@@ -103,4 +124,16 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
             }
         }
     }
+
+    buffer_convex_shape.setPointCount(4);
+    buffer_convex_shape.setPoint(0, sf::Vector2f(0, 0));
+    buffer_convex_shape.setPoint(1, sf::Vector2f(size.x, 0));
+    buffer_convex_shape.setPoint(2, size);
+    buffer_convex_shape.setPoint(3, sf::Vector2f(0, size.y));
+    buffer_convex_shape.setFillColor(sf::Color(0, 0, 0, 100));
+    buffer_convex_shape.setPosition(sf::Vector2f(0.0f, 0.0f));
+    target.draw(buffer_convex_shape, states);
+
+    for (int i = 0; i < Childs.size(); ++i)
+        target.draw(*Childs[i], states);
 }
