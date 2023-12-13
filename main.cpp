@@ -7,106 +7,19 @@
 
 using namespace sf;
 
+#define PHI 1.618033988749
 
-enum class Cell { None, Cross, Circle };
-
-const int WindowSize = 600;
-const int size = 9;
-const float CellSize = WindowSize / (size) ;
-const int LineSize = WindowSize / (size);
-
-
-Cell grid[size][size];
-
-
-void initGrid(int size) {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            grid[i][j] = Cell::None;
-        }
-    }
-}
-
-void drawGrid(RenderWindow& window) {
-
-    int offsetX = 0;
-    int offsetY = 0;
-
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) { 
-                RectangleShape cell(Vector2f(CellSize, CellSize));
-
-                cell.setPosition(CellSize * i + 7, CellSize * j + 7);
-                cell.setFillColor(Color::White);
-                cell.setOutlineThickness(2);
-                cell.setOutlineColor(Color::Black);
-
-                window.draw(cell);
-
-            if (j == 0 && i == 0) {
-                RectangleShape cell(Vector2f(CellSize, CellSize));
-                RectangleShape line(Vector2f(LineSize * 3, 5));
-                RectangleShape line2(Vector2f(LineSize * 3, 5));
-
-                line.setFillColor(Color::Black);
-                line2.setFillColor(Color::Black);
-
-                line.setPosition(LineSize * i + 5, LineSize * j );
-                line2.setPosition(LineSize * i + 5, LineSize * j );
-
-                line.rotate(90);
-
-                window.draw(line);
-                window.draw(line2);
-
-                cell.setPosition(CellSize * i + 7, CellSize * j + 7);
-                cell.setFillColor(Color::White);
-                cell.setOutlineThickness(2);
-                cell.setOutlineColor(Color::Black);
-
-                window.draw(cell);
-            }
-            else if (j == 0 || i == 0) {
-                RectangleShape cell(Vector2f(CellSize, CellSize));
-                RectangleShape line(Vector2f(LineSize, 5));
-
-                line.setFillColor(Color::Black);
-
-                i == 0 ? line.rotate(90) : line.rotate(0);
-                line.setPosition(LineSize * i + 5, LineSize * j );
-                window.draw(line);
-            }
-            
-            if (j > 2 && j % 3 == 0 || (j + 1) == size) {
-                RectangleShape line(Vector2f(5, LineSize));
-                line.rotate(90);
-                line.setFillColor(Color::Black);
-                ((j + 1) == size) ? line.setPosition(LineSize * (i + 1), LineSize * (j + 1)) : line.setPosition(LineSize * (i + 1) , LineSize * j + 5);
-                window.draw(line);
-            } 
-
-            if (i > 2 && i % 3 == 0 || (i + 1) == size) {
-                RectangleShape line(Vector2f(5, LineSize));
-
-                line.setFillColor(Color::Black);
-                ((i + 1) == size) ? line.setPosition(LineSize * (i + 1), LineSize * j + 5) : line.setPosition(LineSize * i, LineSize * j + 5);
-                window.draw(line);
-            }
-
-        }
-    }
-}
-
+Resources resources = Resources();
 
 int main(int argc, char** argv)
 {
     // ЭТО ПРИМЕР!!!! желательно делать так, но если что-то придумаешь прикольное, то можешь мне предложить и делать
 
     // массив из указателей на Player, нужно для апкаста. (watch extremecode)
-    RenderWindow window(VideoMode(WindowSize, WindowSize), "UltimateTicTacToe");
+    RenderWindow window(VideoMode(700 * PHI, 700), "UltimateTicTacToe");
 
     playground g = playground();
-    Grid grid = Grid(&g, sf::Vector2f(500, 500));
+    Grid grid = Grid(g, sf::Vector2f(600, 600), resources);
 
     // g.set_cell(coord_to_pos(0, 0), CELL_PL1);
     // g.set_cell(coord_to_pos(1, 1), CELL_PL1);
@@ -153,7 +66,7 @@ int main(int argc, char** argv)
         }
 
 
-        window.clear(Color::Magenta);
+        window.clear(resources.BackgroundColor);
         window.draw(grid);
         window.display();
     }

@@ -21,12 +21,12 @@ public:
 class Box : public sf::Transformable, public sf::Drawable
 {
 public:
-    Box(sf::Vector2f size, Resources* resources);
+    Box(sf::Vector2f size, Resources& resources);
 
     sf::Vector2f GetSize();
 protected:
     sf::Vector2f size;
-    Resources* resources;
+    Resources& resources;
 };
 
 
@@ -35,12 +35,12 @@ class Grid : public Box
 {
 public:
 
-    Grid(playground* ground, sf::Vector2f size);
+    Grid(playground& ground, sf::Vector2f size, Resources& resources);
 
 
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    playground* ground;
+    playground& ground;
 };

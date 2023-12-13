@@ -1,5 +1,5 @@
 #include "interface.hpp"
-
+#include "math.h"
 
 Resources::Resources() : 
     BackgroundColor(sf::Color(42, 46, 50, 255)),
@@ -12,20 +12,19 @@ Resources::Resources() :
 }
 
 
-Resources ResourcesDefault = Resources();
 
 
 
 
 
-Box::Box(sf::Vector2f size, Resources* resources) : size(size), resources(resources) { }
+Box::Box(sf::Vector2f size, Resources& resources) : size(size), resources(resources) { }
 
 sf::Vector2f Box::GetSize() { return size; }
 
 
 
 
-Grid::Grid(playground* ground, sf::Vector2f size) : Box(size, &ResourcesDefault), ground(ground) { }
+Grid::Grid(playground& ground, sf::Vector2f size, Resources& resources) : Box(size, resources), ground(ground) { }
 
 
 sf::ConvexShape buffer_convex_shape = sf::ConvexShape();
