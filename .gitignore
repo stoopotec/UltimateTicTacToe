@@ -3,6 +3,8 @@
 a.out
 main
 main.exe
+interface.o
+main.o
 uttt
 uttt.exe
 tests.exe
