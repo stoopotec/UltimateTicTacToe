@@ -49,13 +49,42 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
             cell_t c = ground->get_cell(coord_to_pos(x, y));
 
             if (c == CELL_SPACE) {
-                
+                buffer_convex_shape.setPointCount(4);
+                buffer_convex_shape.setPoint(0, sf::Vector2f(0, 0));
+                buffer_convex_shape.setPoint(1, sf::Vector2f(cell_size.x, 0));
+                buffer_convex_shape.setPoint(2, cell_size);
+                buffer_convex_shape.setPoint(3, sf::Vector2f(0, cell_size.y));
+                buffer_convex_shape.setFillColor(resources->BackgroundColor);
+                buffer_convex_shape.setPosition(totalSpaceing + sf::Vector2f(cell_size.x * x, cell_size.y * y));
+                target.draw(buffer_convex_shape, states);
             }
             if (c == CELL_PL1) {
+                buffer_convex_shape.setPointCount(4);
+                buffer_convex_shape.setPoint(0, sf::Vector2f(cell_size.x / 5, 0));
+                buffer_convex_shape.setPoint(1, sf::Vector2f(cell_size.x, cell_size.y - (cell_size.y / 5)));
+                buffer_convex_shape.setPoint(2, sf::Vector2f(cell_size.x - (cell_size.x / 5), cell_size.y));
+                buffer_convex_shape.setPoint(3, sf::Vector2f(0, cell_size.y / 5));
+
+                buffer_convex_shape.setFillColor(resources->CrossColor);
+                buffer_convex_shape.setPosition(totalSpaceing + sf::Vector2f(cell_size.x * x, cell_size.y * y));
+                target.draw(buffer_convex_shape, states);
                 
+                buffer_convex_shape.setPointCount(4);
+                buffer_convex_shape.setPoint(0, sf::Vector2f(cell_size.x - (cell_size.x / 5), 0));
+                buffer_convex_shape.setPoint(1, sf::Vector2f(cell_size.x, cell_size.y / 5));
+                buffer_convex_shape.setPoint(2, sf::Vector2f(cell_size.x / 5, cell_size.y));
+                buffer_convex_shape.setPoint(3, sf::Vector2f(0, cell_size.y - cell_size.y / 5));
+
+                buffer_convex_shape.setFillColor(resources->CrossColor);
+                buffer_convex_shape.setPosition(totalSpaceing + sf::Vector2f(cell_size.x * x, cell_size.y * y));
+                target.draw(buffer_convex_shape, states);
             }
             if (c == CELL_PL2) {
-
+                buffer_circle_shape.setRadius(cell_size.x / 2);
+                buffer_circle_shape.setPointCount(50);
+                buffer_circle_shape.setFillColor(resources->CircleColor);
+                buffer_circle_shape.setPosition(totalSpaceing + sf::Vector2f(cell_size.x * x, cell_size.y * y));
+                target.draw(buffer_circle_shape, states);
             }
             if (c == CELL_ERR) {
                 buffer_convex_shape.setPointCount(4);
