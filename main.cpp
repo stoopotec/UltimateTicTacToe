@@ -123,10 +123,10 @@ int main(int argc, char** argv)
     g.set_cell(coord_to_pos(8, 0), CELL_PL2);
     g.set_cell(coord_to_pos(7, 1), CELL_PL2);
 
-    g.set_cell(coord_to_pos(0, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(0, 1), CELL_PL2);
-    g.set_cell(coord_to_pos(1, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(1, 1), CELL_PL2);
+    g.set_cell(coord_to_pos(0, 0), CELL_PL1);
+    g.set_cell(coord_to_pos(0, 1), CELL_PL1);
+    g.set_cell(coord_to_pos(1, 0), CELL_PL1);
+    g.set_cell(coord_to_pos(1, 1), CELL_PL1);
 
     g.set_cell(coord_to_pos(2, 0), CELL_PL2);
     g.set_cell(coord_to_pos(3, 0), CELL_PL2);
