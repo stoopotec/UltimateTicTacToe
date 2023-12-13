@@ -13,9 +13,6 @@ Resources resources = Resources();
 
 int main(int argc, char** argv)
 {
-    // ЭТО ПРИМЕР!!!! желательно делать так, но если что-то придумаешь прикольное, то можешь мне предложить и делать
-
-    // массив из указателей на Player, нужно для апкаста. (watch extremecode)
     RenderWindow window(VideoMode(700 * PHI, 700), "UltimateTicTacToe");
 
     playground g = playground();
