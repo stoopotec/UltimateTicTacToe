@@ -13,7 +13,8 @@ Resources resources = Resources();
 
 int main(int argc, char** argv)
 {
-    RenderWindow window(VideoMode(700 * PHI, 700), "UltimateTicTacToe");
+    ContextSettings settings = ContextSettings(0U, 0U, 3U, 1U, 1U, 0U, false);
+    RenderWindow window(VideoMode(700 * PHI, 700), "UltimateTicTacToe", 7U, settings);
 
     playground g = playground();
     Grid grid = Grid(g, sf::Vector2f(600, 600), resources);
