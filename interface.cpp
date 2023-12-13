@@ -34,8 +34,8 @@ void Box::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-Grid::Grid(playground& ground, void (*process_click)(pos_t pos), sf::Vector2f size, Resources& resources) 
-    : Box(size, resources), ground(ground), process_click(process_click) { }
+Grid::Grid(playground& ground, void (*on_click)(pos_t pos), sf::Vector2f size, Resources& resources) 
+    : Box(size, resources), ground(ground), on_click(on_click) { }
 
 void Grid::processClick(sf::Vector2u& pos) {
     Box::processClick(pos);
@@ -44,7 +44,7 @@ void Grid::processClick(sf::Vector2u& pos) {
 
     rel_pos = sf::Vector2f(rel_pos.x / size.x * 9.0f, rel_pos.y / size.y * 9.0f);
 
-    ground.set_cell(coord_to_pos(rel_pos.x, rel_pos.y), ground.get_cell(coord_to_pos(rel_pos.x, rel_pos.y)) ^ 0b11);
+    if (on_click != nullptr) on_click(coord_to_pos(rel_pos.x, rel_pos.y));
 
 }
 

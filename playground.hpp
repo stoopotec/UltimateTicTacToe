@@ -71,6 +71,12 @@ public:
     /// @return если ход сделан успешно, true, иначе false
     bool move(int x, int y);
 
+    /// @brief проверяет, можно ли делать ход текущим игроком на выбранную клетку
+    bool can_move(pos_t move);
+
+    /// @brief проверяет, можно ли делать ход текущим игроком на выбранную клетку
+    bool can_move(int x, int y);
+
     /// @brief узнаёт, какой игрок сейчас должен ходить
     /// @return если не CELL_PL1 или CELL_PL2 - ходить больше нельзя
     cell_t get_who_moves();

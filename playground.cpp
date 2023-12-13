@@ -143,7 +143,7 @@ playground::playground() {
     for (int i = 0; i < PLAYGROUND_BYTES; i++) ground[i] = 0;
     // третий бит отвечает за хранение того, кто сейчас ходит, 
     // с тетьего по 8 - куда можно ходить (если значение больше 8, ходить можно куда угодно)
-    ground[20] |= 0b11111100; 
+    ground[20] |= 0b11110100;
 }
 playground::~playground() { }
 
@@ -240,17 +240,18 @@ bool playground::move(pos_t pos) {
     cell_t move_cell_c = get_cell(pos);
     if (move_cell_c != CELL_SPACE) return false;
 
-    pos_t move_box_p = get_move_box();
+    pos_t should_move_box_p = get_move_box();
 
 
     pos_t wanna_move_box_p;
     wanna_move_box_p = (pos & 0b1111) % PLAYGROUND_SIDE_SIZE;
     wanna_move_box_p |= ((pos >> 4) % PLAYGROUND_SIDE_SIZE) << 4;
 
-
-    if (move_box_p != POS_MAX && wanna_move_box_p != move_box_p) return false;
+    printf("1st condition: (%i || %i) && %i\n", (should_move_box_p >> 4 < 3)?1:0, (should_move_box_p & 0b1111 < 3)?1:0, (wanna_move_box_p != should_move_box_p)?1:0);
+    if ((should_move_box_p >> 4 < 3 || should_move_box_p & 0b1111 < 3) && wanna_move_box_p != should_move_box_p) return false;
 
     cell_t who_move = get_who_moves();
+    printf("2st condition: %i && %i\n", (who_move != CELL_PL1)?1:0, (who_move != CELL_PL2)?1:0);
     if (who_move != CELL_PL1 && who_move != CELL_PL2) return false;
 
     set_cell(pos, who_move);

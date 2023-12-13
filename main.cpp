@@ -11,6 +11,23 @@ using namespace sf;
 
 Resources resources = Resources();
 
+
+Player *player1, *player2;
+playground g = playground();
+
+
+void p1_move(pos_t pos) {
+    printf("player1 moved at %i, %i\n", (int)(pos & 0b1111), (int)(pos >> 4));
+}
+
+void p2_move(pos_t pos) {
+    printf("player2 moved at %i, %i\n", (int)(pos & 0b1111), (int)(pos >> 4));
+}
+
+void process_click(pos_t pos) {
+    printf("clicked at %i, %i, move is %i\n", (int)(pos & 0b1111), (int)(pos >> 4), g.move(pos) ? 1 : 0);
+}
+
 int main(int argc, char** argv)
 {
     ContextSettings settings = ContextSettings(0U, 0U, 3U, 1U, 1U, 0U, false);
@@ -20,47 +37,15 @@ int main(int argc, char** argv)
 
     Box body = Box((sf::Vector2f)window.getSize(), resources);
 
-    playground g = playground();
-    Grid grid = Grid(g, nullptr, sf::Vector2f(600, 600), resources);
+    
+    Grid grid = Grid(g, process_click, sf::Vector2f(600, 600), resources);
     body.Childs.push_back(&grid);
 
-    Player *player1, *player2;
-
-    // g.set_cell(coord_to_pos(0, 0), CELL_PL1);
-    // g.set_cell(coord_to_pos(1, 1), CELL_PL1);
-    // g.set_cell(coord_to_pos(1, 0), CELL_PL1);
-    // g.set_cell(coord_to_pos(0, 1), CELL_PL1);
-
-    g.set_cell(coord_to_pos(7, 7), CELL_ERR);
-    g.set_cell(coord_to_pos(8, 8), CELL_ERR);
-    g.set_cell(coord_to_pos(8, 7), CELL_ERR);
-    g.set_cell(coord_to_pos(7, 8), CELL_ERR);
-
-    g.set_cell(coord_to_pos(7, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(8, 1), CELL_PL2);
-    g.set_cell(coord_to_pos(8, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(7, 1), CELL_PL2);
-
-    g.set_cell(coord_to_pos(0, 0), CELL_PL1);
-    g.set_cell(coord_to_pos(0, 1), CELL_PL1);
-    g.set_cell(coord_to_pos(1, 0), CELL_PL1);
-    g.set_cell(coord_to_pos(1, 1), CELL_PL1);
-
-    g.set_cell(coord_to_pos(2, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(3, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(2, 1), CELL_PL2);
-    g.set_cell(coord_to_pos(3, 0), CELL_PL2);
-
-    g.set_cell(coord_to_pos(4, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(5, 0), CELL_PL2);
-    g.set_cell(coord_to_pos(4, 1), CELL_PL2);
-    g.set_cell(coord_to_pos(7, 1), CELL_PL2);
     
 
-    g.set_cell(coord_to_pos(0, 7), CELL_ERR);
-    g.set_cell(coord_to_pos(1, 8), CELL_ERR);
-    g.set_cell(coord_to_pos(1, 7), CELL_ERR);
-    g.set_cell(coord_to_pos(0, 8), CELL_ERR);
+    GraphicPlayer gp1 = GraphicPlayer(p1_move);
+    GraphicPlayer gp2 = GraphicPlayer(p2_move);
+
 
     CircleShape cursor = CircleShape(10);
 
@@ -81,6 +66,8 @@ int main(int argc, char** argv)
                 body.processClick(mousePos);
             }
         }
+
+
 
 
         window.clear(resources.BackgroundColor);

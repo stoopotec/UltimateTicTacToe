@@ -25,6 +25,7 @@ public:
 
 class GraphicPlayer : public Player
 {
+public:
     GraphicPlayer(void (*move)(pos_t pos));
 
     void prepare_move(playground& ground);
