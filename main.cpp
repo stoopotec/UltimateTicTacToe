@@ -24,8 +24,9 @@ void p2_move(pos_t pos) {
     printf("player2 moved at %i, %i\n", (int)(pos & 0b1111), (int)(pos >> 4));
 }
 
-void process_click(pos_t pos) {
-    printf("clicked at %i, %i, move is %i\n", (int)(pos & 0b1111), (int)(pos >> 4), g.move(pos) ? 1 : 0);
+void process_click(pos_t* poses, int poses_len, Grid& senders) {
+    //printf("clicked at %i, %i, move is %i\n", (int)(pos & 0b1111), (int)(pos >> 4), g.move(pos) ? 1 : 0);
+    printf("click\n");
 }
 
 int main(int argc, char** argv)
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
     Box body = Box((sf::Vector2f)window.getSize(), resources);
 
     
-    Grid grid = Grid(g, process_click, sf::Vector2f(600, 600), resources);
+    Grid grid = Grid(process_click, 1, sf::Vector2f(600, 600), resources);
     body.Childs.push_back(&grid);
 
     
