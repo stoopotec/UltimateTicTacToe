@@ -126,5 +126,5 @@ private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    void (*click_event_handler)(pos_t* poses, int poses_len, Grid& sender);
+    void (*click_event_handler)(pos_t* poses, int poses_len, Element* sender);
 };
