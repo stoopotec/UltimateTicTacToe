@@ -56,6 +56,8 @@ public:
     Cell(sf::Vector2f size, Resources& resources);
 
     virtual void processClick(sf::Vector2u& pos) = 0;
+
+    virtual cell_t CellType() = 0;
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
@@ -69,6 +71,8 @@ public:
     Cell_Cross(sf::Vector2f size, Resources& resources);
 
     virtual void processClick(sf::Vector2u& pos);
+
+    virtual cell_t CellType() { return CELL_PL1; }
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -81,6 +85,8 @@ public:
     Cell_Circle(sf::Vector2f size, Resources& resources);
 
     virtual void processClick(sf::Vector2u& pos);
+
+    virtual cell_t CellType() { return CELL_PL2; }
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -93,6 +99,8 @@ public:
     Cell_Space(sf::Vector2f size, Resources& resources);
 
     virtual void processClick(sf::Vector2u& pos);
+
+    virtual cell_t CellType() { return CELL_SPACE; }
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -105,6 +113,8 @@ public:
     Cell_Error(sf::Vector2f size, Resources& resources);
 
     virtual void processClick(sf::Vector2u& pos);
+
+    virtual cell_t CellType() { return CELL_ERR; }
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
