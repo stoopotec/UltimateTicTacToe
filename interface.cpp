@@ -169,6 +169,12 @@ void Grid::setCell(pos_t* posses, cell_t cell)
     printf("SETTING CELL IS NOT IMPLEMENTED!!\n");
 }
 
+pos_t Grid::getCellByCoord(sf::Vector2f coord) {
+    static sf::Vector2f rel_pos;
+    rel_pos = sf::Vector2f(rel_pos.x / size.x * 9.0f, rel_pos.y / size.y * 9.0f);
+    return coord_to_pos(rel_pos.x, rel_pos.y);
+}
+
 void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // нужно для того, чтобы трансформации применялись от класса к классу как родители с детьми в html
     states.transform *= this->getTransform();

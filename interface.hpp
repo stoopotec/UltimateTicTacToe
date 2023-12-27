@@ -127,11 +127,14 @@ class Grid : public Box
 {
 public:
 
-    Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Grid& sender), unsigned int nested_grids, sf::Vector2f size, Resources& resources);
+    Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sender), unsigned int nested_grids, sf::Vector2f size, Resources& resources);
 
     void processClick(sf::Vector2u& pos) override;
 
     void setCell(pos_t* posses, cell_t cell);
+
+    /// @brief ищет клетку (кординаты / позиция / x, y), куда указывает coord (минимум 0, максимум GetSize())
+    pos_t getCellByCoord(sf::Vector2f coord);
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
