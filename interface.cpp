@@ -153,14 +153,34 @@ Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sen
 }
 
 void Grid::processClick(sf::Vector2u& pos) {
-    Box::processClick(pos);
-    sf::Vector2f rel_pos = (sf::Vector2f)pos - getPosition();
-    if (rel_pos.x > size.x || rel_pos.y > size.y) return;
 
-    rel_pos = sf::Vector2f(rel_pos.x / size.x * 9.0f, rel_pos.y / size.y * 9.0f);
+    size_t actual_size = 2;
+    size_t posses_len = 0;
+    pos_t* posses = (pos_t*)malloc(sizeof(*posses) * actual_size);
 
-    // pos_t* posses = (pos_t*)malloc((*posses) * 2); // 2 это максимальное вложенное количество сеток, как-то так ЕСЛИ ЧТО_ТО СЛОМАЛОСЬ, ТО ТУТ ТОЖЕ МОЖЕТ БЫТЬ ПРИЧИНА
-    // if (click_event_handler != nullptr) click_event_handler(coord_to_pos(rel_pos.x, rel_pos.y));
+    
+    Grid* temp_grid = this;
+    Element* temp_elem;
+    static sf::Vector2f temp_pos;
+    temp_pos = (sf::Vector2f)pos;
+    temp_pos -= getPosition();
+    do {
+        posses[posses_len++] = temp_grid->getCellByCoord(temp_pos);
+        
+        if (posses_len > actual_size) {
+            actual_size *= 2;
+            posses = (pos_t*)realloc(posses, sizeof(*posses) * actual_size);
+        }
+        temp_elem = temp_grid->Childs[pos_to_index(posses[posses_len-1], 3)];
+        if (temp_elem->GetType() == EElementType::Grid) {
+            temp_grid = (Grid*)temp_elem;
+            temp_pos -= temp_grid->getPosition();
+        }
+        else break;
+    } while (true);
+
+
+    if (click_event_handler != nullptr) click_event_handler(posses, posses_len, this);
 
 }
 
@@ -170,8 +190,9 @@ void Grid::setCell(pos_t* posses, cell_t cell)
 }
 
 pos_t Grid::getCellByCoord(sf::Vector2f coord) {
-    static sf::Vector2f rel_pos;
-    rel_pos = sf::Vector2f(rel_pos.x / size.x * 9.0f, rel_pos.y / size.y * 9.0f);
+    static sf::Vector2i rel_pos;
+    rel_pos = sf::Vector2i(coord.x / size.x * 3.0f, coord.y / size.y * 3.0f);
+    if (rel_pos.x >= 3 || rel_pos.y >= 3) return POS_MAX;
     return coord_to_pos(rel_pos.x, rel_pos.y);
 }
 
