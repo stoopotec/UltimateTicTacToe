@@ -146,7 +146,7 @@ Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sen
             for (int x = 0; x < 3; ++x)
             {
                 Childs.push_back(nullptr);
-                Childs[Childs.size()-1] = new Cell_Cross(cell_size, resources);
+                Childs[Childs.size()-1] = new Cell_Space(cell_size, resources);
                 Childs[Childs.size()-1]->setPosition(
                     sf::Vector2f(cell_def_size.x * x, cell_def_size.y * y) + delta_pos);
             }
@@ -199,6 +199,28 @@ void Grid::setCell(pos_t* posses, int posses_len, cell_t cell)
         printf("x: %i, y: %i;\n", (int)x, (int)y);
     }
     printf("(try to set \'%c\' cell)\n\n", cell_to_char(cell));
+
+    Grid* grid = this;
+    for (size_t i = 0; i < posses_len-1; ++i) {
+        grid = (Grid*)grid->Childs[pos_to_index(posses[i], 3)];
+    }
+    void* cellp = grid->Childs[pos_to_index(posses[posses_len-1], 3)];
+    delete grid->Childs[pos_to_index(posses[posses_len-1], 3)];
+
+    sf::Vector2f cell_size = (grid->GetSize()) / 3.0f * 0.95f;
+    sf::Vector2f cell_def_size = (grid->GetSize()) / 3.0f;
+    sf::Vector2f delta_pos = (cell_def_size - cell_size) / 2.0f;
+
+         if (cell == CELL_PL1)   grid->Childs[pos_to_index(posses[posses_len-1], 3)] = new Cell_Cross (cell_size, grid->resources);
+    else if (cell == CELL_PL2)   grid->Childs[pos_to_index(posses[posses_len-1], 3)] = new Cell_Circle(cell_size, grid->resources);
+    else if (cell == CELL_SPACE) grid->Childs[pos_to_index(posses[posses_len-1], 3)] = new Cell_Space (cell_size, grid->resources);
+    else                         grid->Childs[pos_to_index(posses[posses_len-1], 3)] = new Cell_Error (cell_size, grid->resources);
+    
+    static unsigned char x, y;
+    pos_to_coord(x, y, posses[posses_len-1]);
+
+    grid->Childs[pos_to_index(posses[posses_len-1], 3)]->setPosition(
+                    sf::Vector2f(cell_def_size.x * x, cell_def_size.y * y) + delta_pos);
 }
 
 pos_t Grid::getCellByCoord(sf::Vector2f coord) {
