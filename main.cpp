@@ -24,9 +24,9 @@ void p2_move(pos_t pos) {
     printf("player2 moved at %i, %i\n", (int)(pos & 0b1111), (int)(pos >> 4));
 }
 
-void process_click(pos_t* poses, int poses_len, Grid& senders) {
+void process_click(pos_t* posses, int poses_len, Element* sender) {
     //printf("clicked at %i, %i, move is %i\n", (int)(pos & 0b1111), (int)(pos >> 4), g.move(pos) ? 1 : 0);
-    printf("click\n");
+    ((Grid*)sender)->setCell(posses, poses_len, CELL_PL2);
 }
 
 int main(int argc, char** argv)

@@ -153,7 +153,6 @@ Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sen
 }
 
 void Grid::processClick(sf::Vector2u& pos) {
-
     size_t actual_size = 2;
     size_t posses_len = 0;
     pos_t* posses = (pos_t*)malloc(sizeof(*posses) * actual_size);
@@ -167,12 +166,17 @@ void Grid::processClick(sf::Vector2u& pos) {
     do {
         posses[posses_len++] = temp_grid->getCellByCoord(temp_pos);
         
-        if (posses_len > actual_size) {
+        if (posses_len >= actual_size) {
             actual_size *= 2;
             posses = (pos_t*)realloc(posses, sizeof(*posses) * actual_size);
         }
-        temp_elem = temp_grid->Childs[pos_to_index(posses[posses_len-1], 3)];
-        if (temp_elem->GetType() == EElementType::Grid) {
+        
+        static size_t index;
+        index = pos_to_index(posses[posses_len-1], 3);
+        
+        if (index >= 9) break;
+        temp_elem = temp_grid->Childs[index]; 
+        if (temp_elem->GetType() == EElementType::GRID) {
             temp_grid = (Grid*)temp_elem;
             temp_pos -= temp_grid->getPosition();
         }
@@ -182,11 +186,19 @@ void Grid::processClick(sf::Vector2u& pos) {
 
     if (click_event_handler != nullptr) click_event_handler(posses, posses_len, this);
 
+
+    free(posses);
 }
 
-void Grid::setCell(pos_t* posses, cell_t cell) 
+void Grid::setCell(pos_t* posses, int posses_len, cell_t cell) 
 {
-    printf("SETTING CELL IS NOT IMPLEMENTED!!\n");
+    printf("click on\n");
+    for (int i = 0; i < posses_len; ++i) {
+        static unsigned char x, y;
+        pos_to_coord(x, y, posses[i]);
+        printf("x: %i, y: %i;\n", (int)x, (int)y);
+    }
+    printf("(try to set \'%c\' cell)\n\n", cell_to_char(cell));
 }
 
 pos_t Grid::getCellByCoord(sf::Vector2f coord) {

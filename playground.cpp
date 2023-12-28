@@ -20,6 +20,17 @@ pos_t index_to_pos(unsigned char index, unsigned char width) {
 }
 
 
+// inline pos_t index_to_pos(unsigned char index, unsigned char width) {
+//     pos_t pos = index % width;
+//     pos += ((index - pos) / width) << 4;
+//     return pos;
+// }
+
+// inline unsigned char pos_to_index(pos_t pos, unsigned char width) {
+//     return (pos >> 4) * width + (pos & (pos_t)0b1111);
+// }
+
+
 bool visible_char(char c) {
     return (c >= 33 && c <= 126);
 }
@@ -276,16 +287,6 @@ bool playground::move(int x, int y) {
     y &= 0b1111;
 
     return move((cell_t)(x) + (cell_t)(y << 4));
-}
-
-inline pos_t index_to_pos(pos_t index, unsigned char side_size) {
-    pos_t pos = index % side_size;
-    pos += ((index - pos) / side_size) << 4;
-    return pos;
-}
-
-inline pos_t pos_to_index(pos_t pos, unsigned char side_size) {
-    return (pos >> 4) * side_size + (pos & (pos_t)0b1111);
 }
 
 cell_t playground::get_who_moves() {
