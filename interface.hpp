@@ -15,6 +15,13 @@ public:
     sf::Color ErrorColor;
 };
 
+enum EElementType { // первые 8 бит для первых родителей, вторые 8 для вторых родителей итд. для финальных детей используй последние 8 бит (считай первый - послений как слева направо)
+    Element = 0b1000000000000000000000000000000000000000000000000000000000000000,
+    Box     = 0b1000000010000000000000000000000000000000000000000000000000000000,
+    Grid    = 0b1000000010000000000000000000000000000000000000000000000000000001,
+    Cell    = 0b1000000010000000100000000000000000000000000000000000000000000000,
+};
+
 
 class Element : public sf::Transformable, public sf::Drawable
 {
@@ -25,6 +32,7 @@ public:
 
     virtual void processClick(sf::Vector2u& pos) = 0;
 
+    virtual EElementType GetType() { return EElementType::Element; }
 protected:
     sf::Vector2f size;
     Resources& resources;
@@ -42,6 +50,7 @@ public:
 
     std::vector<Element*> Childs;
 
+    virtual EElementType GetType() override { return EElementType::Box; }
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
@@ -58,6 +67,8 @@ public:
     virtual void processClick(sf::Vector2u& pos) = 0;
 
     virtual cell_t CellType() = 0;
+
+    virtual EElementType GetType() override { return EElementType::Cell; }
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
