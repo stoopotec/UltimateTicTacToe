@@ -7,6 +7,18 @@
 
 
 
+unsigned char pos_to_index(pos_t pos, unsigned char width) {
+    static unsigned char x, y;
+    pos_to_coord(x, y, pos);
+    return x + width * y;
+}
+
+pos_t index_to_pos(unsigned char index, unsigned char width) {
+    static unsigned char y;
+    y = index % width;
+    return coord_to_pos(index - width * y, y);
+}
+
 
 bool visible_char(char c) {
     return (c >= 33 && c <= 126);

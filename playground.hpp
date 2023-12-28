@@ -17,6 +17,12 @@ typedef unsigned char pos_t;
 
 #define POS_MAX    (~(pos_t)0b0)
 
+/// @brief контекст: ты в коробке, ты знаешь свою позицию (кординату) и хочешь найти индекс ячейки
+unsigned char pos_to_index(pos_t pos, unsigned char width);
+
+/// @brief контекст: ты в коробке, ты знаешь индекс ячейки и хочешь найти кординату
+pos_t index_to_pos(unsigned char index, unsigned char width);
+
 /// @brief 
 /// @param cell число от 0 до 4
 /// @return символ, ассоциирующийся с номером клетки (см CELL_... в playground.hpp)
