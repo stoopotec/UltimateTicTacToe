@@ -122,7 +122,7 @@ void Cell_Error::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
 
-Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Grid& sender), unsigned int nested_grids, sf::Vector2f size, Resources& resources) 
+Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sender), unsigned int nested_grids, sf::Vector2f size, Resources& resources) 
     : Box(size, resources), click_event_handler(click_event_handler) 
 {
     sf::Vector2f cell_size = (size) / 3.0f * 0.95f;
