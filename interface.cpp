@@ -133,8 +133,8 @@ Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sen
     
 
     if (nested_grids > 0)
-        for (int x = 0; x < 3; ++x)
-            for (int y = 0; y < 3; ++y)
+        for (int y = 0; y < 3; ++y)
+            for (int x = 0; x < 3; ++x)
             {
                 Childs.push_back(nullptr);
                 Childs[Childs.size()-1] = new Grid(nullptr, nested_grids - 1, cell_size, resources);
@@ -142,8 +142,8 @@ Grid::Grid(void (*click_event_handler)(pos_t* poses, int poses_len, Element* sen
                     sf::Vector2f(cell_def_size.x * x, cell_def_size.y * y) + delta_pos);
             }
     if (nested_grids == 0)
-        for (int x = 0; x < 3; ++x)
-            for (int y = 0; y < 3; ++y)
+        for (int y = 0; y < 3; ++y)
+            for (int x = 0; x < 3; ++x)
             {
                 Childs.push_back(nullptr);
                 Childs[Childs.size()-1] = new Cell_Cross(cell_size, resources);
